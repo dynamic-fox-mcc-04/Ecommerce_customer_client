@@ -30,12 +30,16 @@
         </nav>
     </div>
     <router-view/>
-    
+    <CartBar></CartBar>
   </div>
 </template>
 
 <script>
+import CartBar from './components/CartBar'
 export default {
+  components: {
+    CartBar
+  },
   computed: {
     isLogin () {
       return this.$store.state.isLogin

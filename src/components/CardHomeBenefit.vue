@@ -10,8 +10,8 @@
 
 <script>
 export default {
-    name: 'CardBenefit',
-    props: ['icon', 'title', 'text']
+  name: 'CardBenefit',
+  props: ['icon', 'title', 'text']
 }
 </script>
 

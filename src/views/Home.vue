@@ -112,11 +112,11 @@ export default {
   -webkit-box-shadow: inset 0px 0px 35px 200px rgba(5,5,5,0.05);
 -moz-box-shadow: inset 0px 0px 35px 200px rgba(5,5,5,0.05);
 box-shadow: inset 0px 0px 35px 200px rgba(5,5,5,0.05);
-} 
+}
 
 #imgCont1 {
   background-image: url('../assets/fruits.jpg');
-  
+
 }
 #imgCont2 {
   background-image: url('../assets/vegetables.jpg');

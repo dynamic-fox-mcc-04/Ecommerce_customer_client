@@ -14,16 +14,17 @@
 <script>
 import ProductCard from './ProductCard'
 export default {
-    name: 'ContainerProduct',
-    components: {
-        ProductCard
-    }
+  name: 'ContainerProduct',
+  components: {
+    ProductCard
+  }
 }
 </script>
 
 <style>
 .containerProduct {
     padding: 10px;
+    padding-bottom: 80px;
     width: 70vw;
     position: relative;
 }

@@ -11,8 +11,8 @@
 
 <script>
 export default {
-    name: 'ProductCard',
-    props: ['src']
+  name: 'ProductCard',
+  props: ['src']
 }
 </script>
 
