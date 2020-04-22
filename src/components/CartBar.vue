@@ -48,7 +48,18 @@ export default {
   methods: {
     ...mapMutations(['SET_CHECKOUT']),
     checkOut () {
-      this.SET_CHECKOUT()
+        if (this.$store.state.currentCart.length === 0) {
+             this.$swal.fire({
+                position: 'center',
+                icon: 'info',
+                text: `Your Cart is empty let's shop now!`,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } else {
+            this.SET_CHECKOUT()
+            this.$router.push('/transactions')
+        }
     }
   }
 }

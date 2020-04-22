@@ -5,8 +5,9 @@
           <form>
               <input class="form-control" type="text" name="email" id="email" placeholder="Enter your email" v-model="email"><br>
               <input class="form-control" type="password" name="password" id="password" placeholder="Enter your password" v-model="password"><br>
-              <button @click.prevent="login" class="btn btn-outline-light form-control" v-if="signIn == 'true'">Sign In</button>
-              <button @click.prevent="signUp" class="btn btn-outline-light form-control" v-if="signIn == 'false'">Sign Up</button>
+              <button @click.prevent="login" class="btn btn-outline-light form-control" v-if="signIn == 'true' && !isLoading">Sign In</button>
+              <button @click.prevent="login" class="btn btn-outline-light form-control" v-if="isLoading"><img src="../assets/Ellipsis-1s-22px.gif" alt=""></button>
+              <button @click.prevent="signUp" class="btn btn-outline-light form-control" v-if="signIn == 'false' && !isLoading">Sign Up</button>
           </form>
       </div>
   </div>
@@ -19,6 +20,7 @@ export default {
   methods: {
     ...mapMutations(['SET_ISLOGIN']),
     login () {
+      this.isLoading = true
       axios({
         method: 'POST',
         url: this.$store.state.baseUrl + '/users/login',
@@ -32,9 +34,18 @@ export default {
           this.SET_ISLOGIN(true)
           this.email = ''
           this.password = ''
+          this.isLoading = false
           this.$router.push('/')
         }).catch((err) => {
-          console.log(err)
+          console.log(err.response.data)
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err.response.data.errors[0].message}`,
+          })
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     },
     signUp () {
@@ -59,7 +70,8 @@ export default {
   data () {
     return {
       password: '',
-      email: ''
+      email: '',
+      isLoading: false
     }
   },
   name: 'SignForm',

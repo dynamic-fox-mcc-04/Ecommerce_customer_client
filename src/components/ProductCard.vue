@@ -1,7 +1,7 @@
 <template>
   <div class="card card-product d-flex align-items-center" style="width: 16rem;">
     <div id="img" :style="urlData">
-      <div style="width:100px; background-color: #CFC08A; border-radius: 3px 0 3px 0; color: white;">
+      <div style="width:100px; background-color: #CFC08A; color: white;">
         <p>Stock {{stock}}</p>
       </div>
     </div>
@@ -19,7 +19,7 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'ProductCard',
-  props: ['src', 'name', 'price', 'id', 'stock'],
+  props: ['src', 'name', 'price', 'id', 'stock', 'category'],
   computed: {
     urlData () {
       return `background-image: url("${this.src}");`
@@ -48,7 +48,7 @@ export default {
     },
     add () {
       if (localStorage.access_token && this.$store.state.isLogin) {
-        if (!this.validationCart(this.id)) {
+        if (!this.validationCart(this.id) && this.$store.state.checkOut.length === 0) {
           this.ADD_CART({
             id: this.id,
             name: this.name,
@@ -56,12 +56,22 @@ export default {
             stock: this.stock,
             src: this.src,
             quantity: 1,
-            total: this.total
+            total: this.total,
+            image: this.src,
+            category: this.category
           })
           this.$swal.fire({
             position: 'center',
             icon: 'success',
             text: `${this.name} has been added to your cart`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } else if (this.$store.state.checkOut.length > 0) {
+          this.$swal.fire({
+            position: 'center',
+            icon: 'info',
+            text: `Please Finish your checkout product first`,
             showConfirmButton: false,
             timer: 1500
           })
@@ -73,7 +83,7 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-        }
+        } 
       } else {
         this.$swal.fire(
           'Have\'nt Sign in yet',

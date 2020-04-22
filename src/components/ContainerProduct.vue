@@ -1,6 +1,6 @@
 <template>
   <div class="containerProduct d-flex align-items-start flex-wrap justify-content-center">
-      <ProductCard v-for="product in products" :key="product.id" :src="product.image_url" :price="product.price" :name="product.name" :stock="product.stock" :id="product.id"></ProductCard>
+      <ProductCard v-for="product in products" :key="product.id" :src="product.image_url" :price="product.price" :name="product.name" :stock="product.stock" :id="product.id" :category="product.category"></ProductCard>
   </div>
 </template>
 

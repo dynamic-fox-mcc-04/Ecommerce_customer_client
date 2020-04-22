@@ -15,6 +15,16 @@ export default {
   components: {
     ContainerBig,
     ContainerCheckout
+  },
+  created () {
+    if (!localStorage.access_token && !this.$store.state.isLogin) {
+       this.$swal.fire(
+          'Have\'nt Sign in yet',
+          'Please sign in first before checkout your order',
+          'question'
+        )
+      this.$router.push('/')
+    }
   }
 }
 </script>

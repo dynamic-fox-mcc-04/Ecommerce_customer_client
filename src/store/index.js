@@ -10,9 +10,14 @@ export default new Vuex.Store({
     isLogin: false,
     products: [],
     currentCart: [],
-    checkOut: []
+    checkOut: [],
+    transactions: []
   },
   mutations: {
+    GET_TRANSACTIONS (state, payload) {
+      state.transactions = []
+      state.transactions = payload
+    },
     SET_CART (state, tag) {
       if (localStorage.myCart && state.currentCart.length === 0) {
         state.currentCart = JSON.parse(localStorage.myCart)
@@ -93,14 +98,58 @@ export default new Vuex.Store({
           headers: {
             access_token: localStorage.access_token
           },
-          data: payload
+          data: payload.payload
         })
           .then((result) => {
             console.log(result)
+            resolve(result)
             context.commit('SET_CHECKOUT', true)
+            context.dispatch('updateStock', payload.payloadUpdate)
           }).catch((err) => {
             console.log(err.response.data)
           })
+      })
+    },
+    updateStock (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PATCH',
+          url: this.state.baseUrl + `/products/${payload.id}`,
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: payload
+        })
+        .then((result) => {
+          resolve(result)
+          context.dispatch('getProduct')
+          context.dispatch('getTransaction')
+          console.log(result)
+        }).catch((err) => {
+          reject(err)
+          console.log(err)
+        })
+      })
+    },
+    getTransaction (context) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: this.state.baseUrl + '/carts',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        .then((result) => {
+          resolve(result)
+          console.log(result.data.result)
+          context.commit('GET_TRANSACTIONS', result.data.result)
+          
+        }).catch((err) => {
+          console.log(err.response.data, '<<<<<')
+          reject(err)
+          console.log(err)
+        })
       })
     }
   },

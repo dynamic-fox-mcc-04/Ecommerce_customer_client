@@ -39,16 +39,45 @@ export default {
       this.$router.push('/')
     },
     payCart () {
+      let totalPrice = 0
       this.checkOutProduct.forEach(el => {
-        const payload = {
-          productId: el.id,
-          qty: el.quantity,
-          total: el.total,
-          status: 'Paid'
-        }
-        console.log(payload)
-        this.$store.dispatch('pay', payload)
+        totalPrice += el.total
       })
+      this.$swal.fire({
+        title: 'Do you want to proceed this checkout?',
+        text: `Total price: Rp ${totalPrice},-`,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, pay it!'
+      }).then((result) => {
+        if (result.value) {
+          this.$swal.fire(
+            'Success!',
+            'Your order has been proceeded.',
+            'success'
+          )
+          this.checkOutProduct.forEach(el => {
+            const payload = {
+              productId: el.id,
+              qty: el.quantity,
+              total: el.total,
+              status: 'Paid'
+            }
+            const payloadUpdate = {
+              id: el.id,
+              name: el.name,
+              image_url: el.image,
+              price: el.price,
+              stock: el.stock - el.quantity,
+              category: el.category
+            }
+            this.$store.dispatch('pay', {payload, payloadUpdate})
+          })
+        }
+      })
+      
     }
   },
   computed: {
@@ -67,13 +96,6 @@ export default {
 </script>
 
 <style>
-#img-cart {
-    width: 60px;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
 .containerCheckout {
     font-family: 'Baloo Paaji 2', cursive ! important;
     border: solid #CFC08A 2px;
@@ -88,6 +110,9 @@ export default {
     height: 20vh;
     border: solid #CFC08A 2px;
     overflow: scroll;
+    -webkit-box-shadow: 1px 1px 15px -2px rgba(5,5,5,0.4);
+-moz-box-shadow: 1px 1px 15px -2px rgba(5,5,5,0.4);
+box-shadow: 1px 1px 15px -2px rgba(5,5,5,0.4);
 }
 #table-checkOut {
     width: 80%;

@@ -13,9 +13,6 @@
                 <router-link to="/" tag="button" class="btn btn-outline-success my-2 my-sm-0">Home</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/#products" tag="button" class="btn btn-outline-success my-2 my-sm-0">Products</router-link>
-              </li>
-              <li class="nav-item">
                 <router-link to="/transactions" tag="button" class="btn btn-outline-success my-2 my-sm-0">Checkout</router-link>
               </li>
             </ul>
@@ -62,6 +59,7 @@ export default {
     if (!localStorage.access_token) {
       this.SET_ISLOGIN(false)
     } else {
+      this.$store.dispatch('getTransaction')
       this.SET_ISLOGIN(true)
     }
   }
@@ -87,6 +85,10 @@ export default {
   -webkit-box-shadow: 0px 0px 5px 2px rgba(207,192,138,0.59);
 -moz-box-shadow: 0px 0px 5px 2px rgba(207,192,138,0.59);
 box-shadow: 0px 0px 5px 2px rgba(207,192,138,0.59);
+}
+
+.navbar-collapse.before {
+  margin-top: 100px
 }
 
 .btn {
