@@ -1,20 +1,28 @@
 <template>
+  <div>
   <div class="home">
     <Navbar />
-    <Content />
+    <div class="content-wrap">
+      <router-view />
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Navbar from '../components/Navbar.vue'
-import Content from '../components/Content.vue'
 
 export default {
   name: 'Home',
   components: {
-    Navbar,
-    Content
+    Navbar
+  },
+  created () {
+    if (localStorage.customer_token) {
+      this.$store.commit('set_name', localStorage.name)
+      this.$store.commit('set_login', true)
+    }
   }
 }
 </script>

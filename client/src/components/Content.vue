@@ -1,4 +1,6 @@
 <template>
+<div>
+  <login-form v-if="showForm" @showLogin="toggleForm"/>
   <div class="content">
     <div class="left">
     </div>
@@ -9,7 +11,7 @@
             </div>
             <div class="productName">
                 <h3>{{product.name}}</h3>
-                <button class="btn btn-primary">Beli</button>
+                <button class="btn btn-primary" @click.prevent="cekLogin">Buy</button>
             </div>
             <div class="price">
                 <h3> Rp {{priceConvert(product.price)}}</h3>
@@ -19,21 +21,42 @@
     <div class="right">
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import numeral from 'numeral'
+import LoginForm from '../components/loginForm.vue'
 export default {
   name: 'Content',
+  components: {
+    LoginForm
+  },
+  data () {
+    return {
+      showForm: false
+    }
+  },
   methods: {
     ...mapActions(['fetchProducts']),
     priceConvert (value) {
       return numeral(value).format('0,0')
+    },
+    toggleForm (value) {
+      this.showForm = value
+    },
+    cekLogin () {
+      if (!this.isLogin) {
+        this.showForm = true
+      } else {
+        this.$route.push('/')
+      }
     }
   },
   computed: {
-    ...mapState(['products'])
+    ...mapState(['products']),
+    ...mapState(['isLogin'])
   },
   created () {
     this.fetchProducts()
@@ -58,7 +81,7 @@ export default {
 
     .left, .right {
         max-width: 200px;
-        background: rgb(177, 177, 177);
+        background: rgb(180, 180, 180);
     }
     .center {
         height: 100%;
@@ -72,6 +95,10 @@ export default {
         width: 100%
     }
 
+    .img-form img:hover {
+        cursor: pointer;
+    }
+
     .productName {
         display: flex;
         flex-direction: row;
@@ -82,7 +109,7 @@ export default {
     .productName h3 {
         font-size: 20px;
         font-weight: bolder;
-        color: rgb(82, 81, 81);
+        color: rgb(105, 99, 99);
     }
 
      .productName button{
