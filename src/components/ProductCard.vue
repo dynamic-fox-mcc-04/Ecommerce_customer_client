@@ -26,6 +26,9 @@ export default {
     },
     myCart () {
       return this.$store.state.currentCart
+    },
+    total () {
+      return 1 * this.price
     }
   },
   methods: {
@@ -33,7 +36,7 @@ export default {
     validationCart (id) {
       let tag = false
       this.myCart.forEach(el => {
-        if (el.id == id) {
+        if (el.id === id) {
           tag = true
         }
       })
@@ -51,7 +54,9 @@ export default {
             name: this.name,
             price: this.price,
             stock: this.stock,
-            src: this.src
+            src: this.src,
+            quantity: 1,
+            total: this.total
           })
           this.$swal.fire({
             position: 'center',
@@ -71,7 +76,7 @@ export default {
         }
       } else {
         this.$swal.fire(
-          `Have'nt Sign in yet`,
+          'Have\'nt Sign in yet',
           'Please sign in first before making purchase',
           'question'
         )

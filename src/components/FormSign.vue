@@ -27,15 +27,15 @@ export default {
           password: this.password
         }
       })
-      .then((result) => {
-        localStorage.access_token = result.data.token
-        this.SET_ISLOGIN(true)
-        this.email = ''
-        this.password = ''
-        this.$router.push('/')
-      }).catch((err) => {
-        console.log(err)
-      });
+        .then((result) => {
+          localStorage.access_token = result.data.token
+          this.SET_ISLOGIN(true)
+          this.email = ''
+          this.password = ''
+          this.$router.push('/')
+        }).catch((err) => {
+          console.log(err)
+        })
     },
     signUp () {
       axios({
@@ -46,21 +46,21 @@ export default {
           password: this.password
         }
       })
-      .then((result) => {
-        console.log(result)
-        this.$router.push('/signIn')
-        this.email = ''
-        this.password = ''
-      }).catch((err) => {
-        console.log(err)
-      });
+        .then((result) => {
+          console.log(result)
+          this.$router.push('/signIn')
+          this.email = ''
+          this.password = ''
+        }).catch((err) => {
+          console.log(err)
+        })
     }
   },
-  data() {
-      return {
-          password: '',
-          email: ''
-      }
+  data () {
+    return {
+      password: '',
+      email: ''
+    }
   },
   name: 'SignForm',
   props: ['signIn', 'headline']

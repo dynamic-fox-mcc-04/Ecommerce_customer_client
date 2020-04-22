@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import FruitPage from '../views/FruitPage.vue'
+import TransactionPage from '../views/TransactionPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import SignUpPage from '../views/SignUpPage.vue'
 
@@ -24,9 +24,9 @@ const routes = [
     component: SignUpPage
   },
   {
-    path: '/fruits',
-    name: 'FruitPage',
-    component: FruitPage
+    path: '/transactions',
+    name: 'TransactionPage',
+    component: TransactionPage
   }
 ]
 

@@ -54,7 +54,7 @@ export default {
     }
   },
   methods: {
-    getProductCategory(category) {
+    getProductCategory (category) {
       this.$store.dispatch('getProduct', category)
     }
   },

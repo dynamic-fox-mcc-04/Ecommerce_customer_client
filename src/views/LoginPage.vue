@@ -7,15 +7,15 @@
 <script>
 import FormSign from '../components/FormSign'
 export default {
-    name: 'LoginPage',
-    components: {
-      FormSign
-    },
-    created () {
-      if (localStorage.access_token) {
-        this.$router.push('/')
-      }
+  name: 'LoginPage',
+  components: {
+    FormSign
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$router.push('/')
     }
+  }
 }
 </script>
 

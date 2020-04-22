@@ -25,7 +25,7 @@
             </button>
             <h4 style="text-align: center; position: relative; top: 5px; color: white;" class="d-flex justify-content-between align-items-center">Cart Bar</h4>
             <div>
-                <button class="btn-outline-light form-control">Check Out</button>
+                <button @click.prevent="checkOut" class="btn-outline-light form-control">Check Out</button>
             </div>
         </nav>
     </div>
@@ -33,15 +33,23 @@
 
 <script>
 import CartRow from '../components/CartRow'
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'CartBar',
   components: {
-      CartRow
+    CartRow
   },
   computed: {
-      myCart () {
-          return this.$store.state.currentCart
-      }
+    myCart () {
+      return this.$store.state.currentCart
+    }
+  },
+  methods: {
+    ...mapMutations(['SET_CHECKOUT']),
+    checkOut () {
+      this.SET_CHECKOUT()
+    }
   }
 }
 </script>
@@ -69,6 +77,7 @@ td {
 }
 
 .contCart {
+    padding-top: 100px;
     background-color: #CFC08A ! important;
     border-radius: 10px 10px 0 0 ! important;
 }

@@ -13,10 +13,10 @@
                 <router-link to="/" tag="button" class="btn btn-outline-success my-2 my-sm-0">Home</router-link>
               </li>
               <li class="nav-item">
-                <a href="#products" class="btn btn-outline-success my-2 my-sm-0" type="submit">Products</a>
+                <router-link to="/#products" tag="button" class="btn btn-outline-success my-2 my-sm-0">Products</router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit">Cart</a>
+                <router-link to="/transactions" tag="button" class="btn btn-outline-success my-2 my-sm-0">Checkout</router-link>
               </li>
             </ul>
               <router-link to="/signIn" tag="button" class="btn btn-outline-success my-2 my-sm-0" v-if="!isLogin">Sign In</router-link>
@@ -35,13 +35,15 @@ import CartBar from './components/CartBar'
 import { mapMutations } from 'vuex'
 export default {
   methods: {
-    ...mapMutations(['SET_ISLOGIN']),
+    ...mapMutations(['SET_ISLOGIN', 'SET_CART', 'SET_CHECKOUT_IN']),
     logout () {
       localStorage.clear()
       this.SET_ISLOGIN(false)
       this.$router.push('/signIn')
+      this.SET_CART(true)
+      this.SET_CHECKOUT_IN(true)
     },
-    getProductCategory(category) {
+    getProductCategory (category) {
       this.$store.dispatch('getProduct', category)
     }
   },
@@ -55,6 +57,8 @@ export default {
   },
   created () {
     this.$store.dispatch('getProduct')
+    this.SET_CART()
+    this.SET_CHECKOUT_IN()
     if (!localStorage.access_token) {
       this.SET_ISLOGIN(false)
     } else {

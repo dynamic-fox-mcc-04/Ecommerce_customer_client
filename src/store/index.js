@@ -9,35 +9,61 @@ export default new Vuex.Store({
     baseUrl: 'https://intense-refuge-03921.herokuapp.com',
     isLogin: false,
     products: [],
-    currentCart: []
+    currentCart: [],
+    checkOut: []
   },
   mutations: {
-    SET_CART (state) {
-      if (localStorage.myCart && state.currentCart.length == 0) {
-        state.currentCart = localStorage.myCart
+    SET_CART (state, tag) {
+      if (localStorage.myCart && state.currentCart.length === 0) {
+        state.currentCart = JSON.parse(localStorage.myCart)
+      } else if (tag) {
+        state.currentCart = []
+      }
+    },
+    SET_CHECKOUT_IN (state, tag) {
+      if (localStorage.myCheckOut && state.checkOut.length === 0 && !tag) {
+        state.checkOut = JSON.parse(localStorage.myCheckOut)
+      } else if (tag) {
+        state.checkOut = []
       }
     },
     GET_PRODUCTS (state, payload) {
       state.products = payload
     },
+    SET_CHECKOUT (state) {
+      state.checkOut = []
+      state.checkOut = state.currentCart
+      state.currentCart = []
+      localStorage.myCheckOut = JSON.stringify(state.checkOut)
+      delete localStorage.myCart
+    },
     SET_ISLOGIN (state, payload) {
       state.isLogin = payload
     },
+    EDIT_CART (state, payload) {
+      state.currentCart.forEach(el => {
+        if (el.id === payload.id) {
+          el.total = payload.total
+          el.quantity = payload.qty
+        }
+      })
+    },
     ADD_CART (state, payload) {
+      console.log(payload)
       state.currentCart.push(payload)
       localStorage.myCart = null
       localStorage.myCart = JSON.stringify(state.currentCart)
-      console.log(localStorage.myCart)
     },
     REMOVE_CART (state, payload) {
-      let temp = state.currentCart.filter(el => {
-        if (el.id != payload) {
+      const temp = state.currentCart.filter(el => {
+        if (el.id !== payload) {
           return el
         }
       })
-      console.log(temp)
       state.currentCart = []
       state.currentCart = temp
+      localStorage.myCart = null
+      localStorage.myCart = JSON.stringify(state.currentCart)
     }
   },
   actions: {
@@ -56,6 +82,24 @@ export default new Vuex.Store({
           }).catch((err) => {
             reject(err)
             console.log(err)
+          })
+      })
+    },
+    pay (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: this.state.baseUrl + '/carts',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: payload
+        })
+          .then((result) => {
+            console.log(result)
+            context.commit('SET_CHECKOUT', true)
+          }).catch((err) => {
+            console.log(err.response.data)
           })
       })
     }
