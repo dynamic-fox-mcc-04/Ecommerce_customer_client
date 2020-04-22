@@ -29,6 +29,7 @@ export default {
           console.log(err)
         })
       io.on('updatedata', (msg) => {
+        console.log('UPDATE DATA')
         this.$store.dispatch('FetchProducts')
           .then(result => {
             this.$store.commit('SET_PRODUCTS', result.data)

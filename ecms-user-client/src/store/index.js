@@ -28,7 +28,7 @@ export default new Vuex.Store({
   actions: {
     FetchProducts (context, payload) {
       return axios({
-        url: 'http://localhost:3000/product',
+        url: 'https://frozen-meadow-20864.herokuapp.com/product',
         method: 'GET',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -37,7 +37,7 @@ export default new Vuex.Store({
     },
     Login (context, payload) {
       return axios({
-        url: 'http://localhost:3000/user/login',
+        url: 'https://frozen-meadow-20864.herokuapp.com/user/login',
         method: 'POST',
         data: {
           Email: payload.Email,
@@ -47,7 +47,7 @@ export default new Vuex.Store({
     },
     Register (context, payload) {
       return axios({
-        url: 'http://localhost:3000/user/register',
+        url: 'https://frozen-meadow-20864.herokuapp.com/user/register',
         method: 'POST',
         data: {
           Email: payload.Email,
@@ -57,7 +57,7 @@ export default new Vuex.Store({
     },
     FetchDetail (context, payload) {
       return axios({
-        url: `http://localhost:3000/product/${payload}`,
+        url: `https://frozen-meadow-20864.herokuapp.com/product/${payload}`,
         method: 'GET',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -66,7 +66,7 @@ export default new Vuex.Store({
     },
     FetchCart (context, payload) {
       return axios({
-        url: 'http://localhost:3000/cart',
+        url: 'https://frozen-meadow-20864.herokuapp.com/cart',
         method: 'GET',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -75,7 +75,7 @@ export default new Vuex.Store({
     },
     AddCart (context, payload) {
       return axios({
-        url: 'http://localhost:3000/cart',
+        url: 'https://frozen-meadow-20864.herokuapp.com/cart',
         method: 'POST',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -88,7 +88,7 @@ export default new Vuex.Store({
     },
     UpdateCart (context, payload) {
       return axios({
-        url: `http://localhost:3000/cart/${payload.id}`,
+        url: `https://frozen-meadow-20864.herokuapp.com/cart/${payload.id}`,
         method: 'PUT',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -101,7 +101,7 @@ export default new Vuex.Store({
     },
     DeleteCart (context, payload) {
       return axios({
-        url: `http://localhost:3000/cart/${payload}`,
+        url: `https://frozen-meadow-20864.herokuapp.com/cart/${payload}`,
         method: 'DELETE',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -110,7 +110,7 @@ export default new Vuex.Store({
     },
     FetchOrder (context, payload) {
       return axios({
-        url: 'http://localhost:3000/cart/order',
+        url: 'https://frozen-meadow-20864.herokuapp.com/cart/order',
         method: 'GET',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -119,7 +119,7 @@ export default new Vuex.Store({
     },
     Checkout (context, payload) {
       return axios({
-        url: 'http://localhost:3000/cart/checkout',
+        url: 'https://frozen-meadow-20864.herokuapp.com/cart/checkout',
         method: 'PATCH',
         headers: {
           access_token: localStorage.getItem('access_token')
@@ -128,7 +128,7 @@ export default new Vuex.Store({
     },
     GetCartDetail (context, payload) {
       return axios({
-        url: `http://localhost:3000/cart/${payload}`,
+        url: `https://frozen-meadow-20864.herokuapp.com/cart/${payload}`,
         method: 'GET',
         headers: {
           access_token: localStorage.getItem('access_token')
