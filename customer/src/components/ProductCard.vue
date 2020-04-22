@@ -4,17 +4,54 @@
   <img class="card-img-top" :src="product.image_url" alt="Card image">
   <div class="card-body">
     <h4 class="card-title">{{product.name}}</h4>
+    <p class="card-text">productid : {{product.id}}</p>
     <p class="card-text">price : {{product.price}}</p>
     <p class="card-text">stock : {{product.stock}}</p>
-    <a href="#" class="btn btn-primary">add to cart</a>
+    <button @click.prevent="addcart" class="btn btn-primary">add to cart</button>
   </div>
 </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import axios from 'axios'
 export default {
   name: 'ProductCard',
-  props: ['product']
+  props: ['product'],
+  computed: {
+    ...mapState(['pendingorder'])
+  },
+  methods: {
+    ...mapActions(['fetchPending']),
+    addcart () {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/trans',
+        headers: {
+          token: localStorage.token,
+          idalamat: localStorage.idalamat
+        },
+        data: {
+          id: this.product.id,
+          price: this.product.price
+        }
+      })
+        .then(result => {
+          console.log('>>>', result.data)
+          this.fetchPending()
+        })
+        .catch(err => {
+          // this.loginstate = false
+          this.$toasted.global.my_app_error({
+            message: 'You have to log in before add to cart'
+          })
+          console.log(err)
+        })
+    }
+  },
+  created () {
+    this.fetchPending()
+  }
 }
 </script>
 
