@@ -9,11 +9,12 @@
                             <td>name</td>
                             <td>price</td>
                             <td>quantity</td>
+                            <td>total</td>
                             <td>action</td>
                         </tr>
                     </thead>
                      <tbody>
-                         <CartRow v-for="cart in myCart" :key="cart.id" :src="cart.src" :name="cart.name" :price="cart.price" :id="cart.id"></CartRow>
+                         <CartRow v-for="cart in myCart" :key="cart.id" :src="cart.src" :name="cart.name" :price="cart.price" :id="cart.id" :stock="cart.stock"></CartRow>
                     </tbody>
                 </table>
             </div>

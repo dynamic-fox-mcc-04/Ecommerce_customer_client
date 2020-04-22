@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 #img {
-  width: 16rem;
+  width: 15rem;
   height: 180px;
   background-repeat: no-repeat;
   background-size: contain;

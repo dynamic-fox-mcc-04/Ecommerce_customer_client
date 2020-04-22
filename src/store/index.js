@@ -12,6 +12,11 @@ export default new Vuex.Store({
     currentCart: []
   },
   mutations: {
+    SET_CART (state) {
+      if (localStorage.myCart && state.currentCart.length == 0) {
+        state.currentCart = localStorage.myCart
+      }
+    },
     GET_PRODUCTS (state, payload) {
       state.products = payload
     },
@@ -20,6 +25,9 @@ export default new Vuex.Store({
     },
     ADD_CART (state, payload) {
       state.currentCart.push(payload)
+      localStorage.myCart = null
+      localStorage.myCart = JSON.stringify(state.currentCart)
+      console.log(localStorage.myCart)
     },
     REMOVE_CART (state, payload) {
       let temp = state.currentCart.filter(el => {
