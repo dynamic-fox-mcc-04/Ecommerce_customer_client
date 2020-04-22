@@ -15,7 +15,10 @@
     </div>
   </div>
   <div class="basket">
-    <button class="basket-btn"><i class="fas fa-shopping-basket"></i><span class="badge badge-danger">5</span></button>
+    <button class="basket-btn"><i class="fas fa-shopping-basket"></i>
+      <span v-if="cart.length > 0" class="badge badge-danger">{{cart.length}}</span>
+      <span v-else></span>
+    </button>
   </div>
   <div class="user-form">
     <div class="notLogin" v-if="!isLogin">
@@ -37,7 +40,7 @@
 
 <script>
 import LoginForm from '../components/loginForm'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -51,9 +54,11 @@ export default {
   },
   computed: {
     ...mapState(['isLogin']),
-    ...mapState(['name'])
+    ...mapState(['name']),
+    ...mapState(['cart'])
   },
   methods: {
+    ...mapActions(['fetchCarts']),
     toggleForm () {
       this.showForm = !this.showForm
     },
@@ -69,6 +74,7 @@ export default {
     logout () {
       localStorage.clear()
       this.$store.commit('set_login', false)
+      this.$store.commit('set_cart', [])
       this.$router.push('/')
       this.fetchProducts()
     }
@@ -77,6 +83,7 @@ export default {
     if (localStorage.customer_token) {
       this.$store.commit('set_name', localStorage.name)
       this.$store.commit('set_login', true)
+      this.fetchCarts()
     }
   }
 }

@@ -2,10 +2,10 @@
     <div class="register-from">
         <div class="register-wrap">
             <h1>Register</h1> <br>
-            <form>
+            <form @submit.prevent="register">
                 <h4>PERSONAL INFORMATION</h4>
                 <input type="text" placeholder="First Name" class="form-control" v-model="data.fname" required>
-                <input type="password" class="form-control" v-model="data.lname" placeholder="Last Name" required>
+                <input type="text" class="form-control" v-model="data.lname" placeholder="Last Name" required>
                 <textarea type="text" placeholder="address" class="form-control" v-model="data.address" required> </textarea>
                 <input type="text" class="form-control" v-model="data.phone" placeholder="Phone Number" required><br><br>
 
@@ -14,11 +14,22 @@
                 <input type="password" class="form-control" v-model="data.password" placeholder="password" required>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
+            <div class="errors" v-if="errors">
+                <div class="alert alert-danger" role="alert" v-for="error in errors" :key="error.id">
+                    <li>{{error.message}}</li>
+                </div>
+            </div>
+            <div class="errors" v-if="isSuccess">
+                <div class="alert alert-success" role="alert">
+                    <li>SUCCESS REGISTER</li>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'RegisterForm',
   data () {
@@ -30,7 +41,35 @@ export default {
         lname: '',
         phone: '',
         address: ''
-      }
+      },
+      errors: [],
+      isSuccess: false
+    }
+  },
+  methods: {
+    ...mapActions(['registerCustomer']),
+    register () {
+      this.registerCustomer(this.data)
+        .then(result => {
+          this.errors = []
+          this.isSuccess = true
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000)
+          this.clear()
+        })
+        .catch(err => {
+          this.errors = err.errors
+          this.isSuccess = false
+        })
+    },
+    clear () {
+      this.data.fname = ''
+      this.data.lname = ''
+      this.data.address = ''
+      this.data.phone = ''
+      this.data.email = ''
+      this.data.password = ''
     }
   }
 }

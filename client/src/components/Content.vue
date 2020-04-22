@@ -11,7 +11,7 @@
             </div>
             <div class="productName">
                 <h3>{{product.name}}</h3>
-                <button class="btn btn-primary" @click.prevent="cekLogin">Buy</button>
+                <button class="btn btn-primary" @click.prevent="cekLogin(product.id)">Buy</button>
             </div>
             <div class="price">
                 <h3> Rp {{priceConvert(product.price)}}</h3>
@@ -40,17 +40,18 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProducts']),
+    ...mapActions(['fetchCarts']),
     priceConvert (value) {
       return numeral(value).format('0,0')
     },
     toggleForm (value) {
       this.showForm = value
     },
-    cekLogin () {
+    cekLogin (productId) {
       if (!this.isLogin) {
         this.showForm = true
       } else {
-        this.$route.push('/')
+        this.$router.push({ name: 'ProductDetail', params: { id: productId } })
       }
     }
   },
@@ -60,6 +61,7 @@ export default {
   },
   created () {
     this.fetchProducts()
+    this.fetchCarts()
   }
 }
 </script>

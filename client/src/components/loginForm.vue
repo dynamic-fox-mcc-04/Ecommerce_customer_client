@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     ...mapActions(['loginCustomer']),
+    ...mapActions(['fetchCarts']),
     showLogin () {
       this.$emit('showLogin', false)
     },
@@ -49,6 +50,7 @@ export default {
           this.$store.commit('set_name', result.name)
           this.$store.commit('set_login', true)
           this.$emit('showLogin', false)
+          this.fetchCarts()
           this.$router.push('/')
           this.errors = []
         })

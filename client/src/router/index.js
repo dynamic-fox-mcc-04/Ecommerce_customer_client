@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Content from '../components/Content.vue'
 import Register from '../components/RegisterForm.vue'
+import ProductDetail from '../components/ProductDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/register',
     name: 'RegisterForm',
     component: Register
+  },
+  {
+    path: '/product/:id',
+    name: 'ProductDetail',
+    component: ProductDetail
   }
 ]
 
