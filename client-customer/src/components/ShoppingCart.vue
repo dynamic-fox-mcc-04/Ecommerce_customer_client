@@ -18,6 +18,7 @@
 
 <script>
 import CartCard from './CartCard'
+import socket from '../config/socket'
 export default {
   name: 'ShoppingCart',
   components: {
@@ -31,10 +32,12 @@ export default {
   methods: {
     checkout () {
       console.log('CHECKOUT @ SHOPPINGCART')
+      const currUser = this.$store.state.user
       this.$store.dispatch('checkoutCart')
         .then(response => {
           console.log('CHECKOUT SUCCESS')
           console.log(response)
+          socket.emit('checkedout', `USER ${currUser} CHECKEDOUT SOME ITEM(S) FROM STORE`)
           this.$toasted.success('CHECKOUT SUCCESS')
           this.$router.push({ path: '/orders' })
         })
