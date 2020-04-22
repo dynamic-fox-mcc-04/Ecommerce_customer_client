@@ -15,12 +15,13 @@
       <div id="benefit" class="d-flex flex-wrap align-items-center justify-content-center">
         <CardBenefit :icon="card.icon" v-for="card in cardBnft" :key="card.title" :title="card.title" :text="card.text"></CardBenefit>
       </div>
-    <div class="border" style="position: relative;"></div>
+    <div id="products" class="border" style="position: relative;"></div>
     <h1 id="ourProduct" class="mt-4 mb-4" style="color: #CFC08A; font-family: 'Elsie', cursive; font-size: 52px;">Our Products</h1><br>
     <div class="btn-group mb-5" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary">Fruits</button>
-      <button type="button" class="btn btn-secondary">Vegetables</button>
-      <button type="button" class="btn btn-secondary">Herbs</button>
+      <button @click.prevent="getProductCategory()" type="button" class="btn btn-secondary">All</button>
+      <button @click.prevent="getProductCategory('Fruit')" type="button" class="btn btn-secondary">Fruits</button>
+      <button @click.prevent="getProductCategory('Vegetable')" type="button" class="btn btn-secondary">Vegetables</button>
+      <button @click.prevent="getProductCategory('Herb')" type="button" class="btn btn-secondary">Herbs</button>
     </div>
     <ContainerProduct></ContainerProduct>
   </div>
@@ -50,6 +51,11 @@ export default {
           icon: 'fas fa-carrot'
         }
       ]
+    }
+  },
+  methods: {
+    getProductCategory(category) {
+      this.$store.dispatch('getProduct', category)
     }
   },
   components: {

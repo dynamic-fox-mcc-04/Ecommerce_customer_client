@@ -10,39 +10,55 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Home</button>
+                <router-link to="/" tag="button" class="btn btn-outline-success my-2 my-sm-0">Home</router-link>
               </li>
               <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Fruits</button>
+                <a href="#products" class="btn btn-outline-success my-2 my-sm-0" type="submit">Products</a>
               </li>
               <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Vegetables</button>
-              </li>
-              <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Herbs</button>
+                <a href="#" class="btn btn-outline-success my-2 my-sm-0" type="submit">Cart</a>
               </li>
             </ul>
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class='fas fa-shopping-cart'></i></button>
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-if="!isLogin">Sign In</button>
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-if="!isLogin">Sign Up</button>
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-if="isLogin">Sign Out</button>
+              <router-link to="/signIn" tag="button" class="btn btn-outline-success my-2 my-sm-0" v-if="!isLogin">Sign In</router-link>
+              <router-link to="/signUp" tag="button" class="btn btn-outline-success my-2 my-sm-0" v-if="!isLogin">Sign Up</router-link>
+              <button @click.prevent="logout" class="btn btn-outline-success my-2 my-sm-0" type="submit" v-if="isLogin">Sign Out</button>
           </div>
         </nav>
     </div>
     <router-view/>
-    <CartBar></CartBar>
+    <CartBar v-if="isLogin"></CartBar>
   </div>
 </template>
 
 <script>
 import CartBar from './components/CartBar'
+import { mapMutations } from 'vuex'
 export default {
+  methods: {
+    ...mapMutations(['SET_ISLOGIN']),
+    logout () {
+      localStorage.clear()
+      this.SET_ISLOGIN(false)
+      this.$router.push('/signIn')
+    },
+    getProductCategory(category) {
+      this.$store.dispatch('getProduct', category)
+    }
+  },
   components: {
     CartBar
   },
   computed: {
     isLogin () {
       return this.$store.state.isLogin
+    }
+  },
+  created () {
+    this.$store.dispatch('getProduct')
+    if (!localStorage.access_token) {
+      this.SET_ISLOGIN(false)
+    } else {
+      this.SET_ISLOGIN(true)
     }
   }
 }

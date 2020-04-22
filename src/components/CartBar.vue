@@ -1,9 +1,21 @@
 <template>
       <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-4">
-            <h4 class="text-white">Collapsed content Cart</h4>
-            <span class="text-muted">Toggleable via the navbar brand.</span>
+            <div class="contCart bg-light pt-3 pl-3 pr-3 d-flex justify-content-center align-items-center">
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <td>image</td>
+                            <td>name</td>
+                            <td>price</td>
+                            <td>quantity</td>
+                            <td>action</td>
+                        </tr>
+                    </thead>
+                     <tbody>
+                         <CartRow v-for="cart in myCart" :key="cart.id" :src="cart.src" :name="cart.name" :price="cart.price" :id="cart.id"></CartRow>
+                    </tbody>
+                </table>
             </div>
         </div>
         <nav id="cart-bar" class="navbar navbar-light bg-light d-flex justify-content-between align-items-center">
@@ -19,12 +31,32 @@
 </template>
 
 <script>
+import CartRow from '../components/CartRow'
 export default {
-  name: 'CartBar'
+  name: 'CartBar',
+  components: {
+      CartRow
+  },
+  computed: {
+      myCart () {
+          return this.$store.state.currentCart
+      }
+  }
 }
 </script>
 
 <style>
+td {
+    border: none ! important;
+}
+#img-cart {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
 .pos-f-t {
     background-color: #CFC08A ! important;
     position: fixed;
@@ -32,7 +64,12 @@ export default {
     left: 10vw;
     width: 80vw;
     border-radius: 10px ! important;
-    /* opacity: 70% ! important; */
+    font-family: 'Baloo Paaji 2', cursive ! important;
+}
+
+.contCart {
+    background-color: #CFC08A ! important;
+    border-radius: 10px 10px 0 0 ! important;
 }
 
 #cart-bar {

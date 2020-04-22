@@ -1,13 +1,6 @@
 <template>
   <div class="containerProduct d-flex align-items-start flex-wrap justify-content-center">
-      <ProductCard src="https://5.imimg.com/data5/TB/TU/MY-1542160/leaf-lettuce1-500x500.jpg"></ProductCard>
-      <ProductCard src="https://media.istockphoto.com/photos/tomato-isolated-on-white-background-picture-id466175630?k=6&m=466175630&s=612x612&w=0&h=fu_mQBjGJZIliOWwCR0Vf2myRvKWyQDsymxEIi8tZ38="></ProductCard>
-      <ProductCard src="https://lh3.googleusercontent.com/proxy/KZnmuP-LNDiELH66QzQbqESIhvyyWn--ZwA12ON7OA6TtZHxEgl2V3k8P9e2IGGNX5WNNSDUC6uAvWnECmp2S5TUWkMYdoT0txd5"></ProductCard>
-      <ProductCard src="https://lh3.googleusercontent.com/proxy/KZnmuP-LNDiELH66QzQbqESIhvyyWn--ZwA12ON7OA6TtZHxEgl2V3k8P9e2IGGNX5WNNSDUC6uAvWnECmp2S5TUWkMYdoT0txd5"></ProductCard>
-      <ProductCard src="https://lh3.googleusercontent.com/proxy/KZnmuP-LNDiELH66QzQbqESIhvyyWn--ZwA12ON7OA6TtZHxEgl2V3k8P9e2IGGNX5WNNSDUC6uAvWnECmp2S5TUWkMYdoT0txd5"></ProductCard>
-      <ProductCard src="https://lh3.googleusercontent.com/proxy/KZnmuP-LNDiELH66QzQbqESIhvyyWn--ZwA12ON7OA6TtZHxEgl2V3k8P9e2IGGNX5WNNSDUC6uAvWnECmp2S5TUWkMYdoT0txd5"></ProductCard>
-      <ProductCard src="https://lh3.googleusercontent.com/proxy/KZnmuP-LNDiELH66QzQbqESIhvyyWn--ZwA12ON7OA6TtZHxEgl2V3k8P9e2IGGNX5WNNSDUC6uAvWnECmp2S5TUWkMYdoT0txd5"></ProductCard>
-
+      <ProductCard v-for="product in products" :key="product.id" :src="product.image_url" :price="product.price" :name="product.name" :stock="product.stock" :id="product.id"></ProductCard>
   </div>
 </template>
 
@@ -17,6 +10,11 @@ export default {
   name: 'ContainerProduct',
   components: {
     ProductCard
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
