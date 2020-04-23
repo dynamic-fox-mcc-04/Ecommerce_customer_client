@@ -14,6 +14,7 @@ export default new Vuex.Store({
     products: [],
     carts: [],
     cart: {
+      id: 0,
       total_price: 0,
       quantity: 0,
       OrderId: 0,
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     amount: 0
   },
   mutations: {
+    setCartId (state, id) {
+      state.cart.id = id
+    },
     setInitialStock (state, stock) {
       state.product.stock = stock
     },
@@ -64,6 +68,7 @@ export default new Vuex.Store({
     },
     resetCart (state) {
       state.cart = {
+        id: 0,
         total_price: 0,
         quantity: 0,
         OrderId: state.cart.OrderId,
@@ -131,7 +136,7 @@ export default new Vuex.Store({
     updateStockProduct () {
       return axios({
         method: 'put',
-        url: `http://localhost:3000/products/${this.state.cart.ProductId}`,
+        url: `https://protected-thicket-20896.herokuapp.com/products/${this.state.cart.ProductId}`,
         headers: {
           access_token: localStorage.access_token
         },
@@ -163,6 +168,15 @@ export default new Vuex.Store({
         data: {
           OrderId: localStorage.OrderId,
           amount: this.state.amount
+        }
+      })
+    },
+    cancelCart () {
+      return axios({
+        method: 'delete',
+        url: 'https://protected-thicket-20896.herokuapp.com/cart/' + this.state.cart.id,
+        headers: {
+          access_token: localStorage.access_token
         }
       })
     }

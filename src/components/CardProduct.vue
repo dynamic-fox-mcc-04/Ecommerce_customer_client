@@ -7,9 +7,9 @@
                 <div class="htcatthumb">  <img :src="product.image_url"> </div>
                 <div class="frhoverinfo">
                     <ul class="productaction">
-                        <li><a href=""><i class="fa fa-shopping-bag"></i></a></li>
+                        <li><a  @click.prevent="makeOrder"><i class="fa fa-shopping-bag"></i></a></li>
                         <li><a @click.prevent="toCart(product.id, product.price, product.stock)"><i class="fa fa-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
+                        <li><a><i class="fa fa-share"></i></a></li>
                     </ul>
                 </div>
                 <div class="frproductinner innerposition">
@@ -27,126 +27,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="col-md-4">
-            <div class="category mb-10">
-                <div class="htcatthumb"> <a href="#"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574239782/ecommerce-furniture/black-kettle-beside-condiment-shakers-and-green-fruits-and-1080696.jpg" alt="product images"> </a> </div>
-                <div class="frhoverinfo">
-                    <ul class="productaction">
-                        <li><a href=""><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
-                    </ul>
-                </div>
-                <div class="frproductinner innerposition">
-                    <h4><a href="">Home Dining Table</a></h4>
-                    <ul class="frproprize text-left ml-text">
-                        <li class="oldprize">$999</li>
-                    </ul>
-                    <ul class="rating">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="category mb-10">
-                <div class="htcatthumb"> <a href="#"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574239782/ecommerce-furniture/apartment-chairs-clean-contemporary-534172.jpg" alt="product images"> </a> </div>
-                <div class="frhoverinfo">
-                    <ul class="productaction">
-                        <li><a href=""><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
-                    </ul>
-                </div>
-                <div class="frproductinner innerposition">
-                    <h4><a href="">Appartment Dining Table</a></h4>
-                    <ul class="frproprize text-left ml-text">
-                        <li class="oldprize">$599</li>
-                    </ul>
-                    <ul class="rating">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="category mb-10">
-                <div class="htcatthumb"> <a href="#"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574239781/ecommerce-furniture/cabinet-contemporary-cups-decoration-279618.jpg" alt="product images"> </a> </div>
-                <div class="frhoverinfo">
-                    <ul class="productaction">
-                        <li><a href=""><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
-                    </ul>
-                </div>
-                <div class="frproductinner innerposition">
-                    <h4><a href="">Home wall cabinet</a></h4>
-                    <ul class="frproprize text-left ml-text">
-                        <li class="oldprize">$269</li>
-                    </ul>
-                    <ul class="rating">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="category mb-10">
-                <div class="htcatthumb"> <a href="#"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574239782/ecommerce-furniture/office-chair-and-desk-1957477.jpg" alt="product images"> </a> </div>
-                <div class="frhoverinfo">
-                    <ul class="productaction">
-                        <li><a href=""><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
-                    </ul>
-                </div>
-                <div class="frproductinner innerposition">
-                    <h4><a href="">Office Chair Furniture</a></h4>
-                    <ul class="frproprize text-left ml-text">
-                        <li class="oldprize">$299</li>
-                    </ul>
-                    <ul class="rating">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="category mb-10">
-                <div class="htcatthumb"> <a href="#"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574239781/ecommerce-furniture/apartment-armchair-chair-coffee-table-1148955.jpg" alt="product images"> </a> </div>
-                <div class="frhoverinfo">
-                    <ul class="productaction">
-                        <li><a href=""><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="#"><i class="fa fa-share"></i></a></li>
-                    </ul>
-                </div>
-                <div class="frproductinner innerposition">
-                    <h4><a href="">Luxury Arm Chair</a></h4>
-                    <ul class="frproprize text-left ml-text">
-                        <li class="oldprize">$799</li>
-                    </ul>
-                    <ul class="rating">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 </template>
@@ -188,6 +68,9 @@ export default {
         minimumFractionDigits: 2
       })
       return formatter.format(price)
+    },
+    makeOrder () {
+      this.$router.push('/carts')
     }
   },
   computed: {

@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <CardProduct/>
-    <button @click="makeOrder">Make Order</button>
   </div>
 </template>
 
@@ -11,11 +10,6 @@ import CardProduct from '../components/CardProduct.vue'
 
 export default {
   name: 'Home',
-  methods: {
-    makeOrder () {
-      this.$router.push('/carts')
-    }
-  },
   computed: {
     coba: {
       get () {

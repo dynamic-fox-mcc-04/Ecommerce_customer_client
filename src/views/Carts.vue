@@ -9,6 +9,7 @@
       <th scope="col">Total Price</th>
       <th scope="col">Quantity</th>
       <th scope="col">Product Name</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody v-for="cart in carts" :key="cart.id">
@@ -17,6 +18,7 @@
       <td>{{cart.total_price}}</td>
       <td>{{cart.quantity}}</td>
       <td>{{cart.Product.name}}</td>
+      <td><button @click.prevent="deleteProduct(cart.id)">Cancel</button></td>
     </tr>
   </tbody>
 </table>
@@ -33,6 +35,14 @@ export default {
           this.$router.push('/checkout')
           this.$store.commit('setAmout', 0)
           localStorage.removeItem('OrderId')
+        })
+        .catch(err => this.$alert(err))
+    },
+    deleteProduct (id) {
+      this.$store.commit('setCartId', id)
+      this.$store.dispatch('cancelCart')
+        .then(() => {
+          this.$router.push('/cart')
         })
         .catch(err => this.$alert(err))
     }
