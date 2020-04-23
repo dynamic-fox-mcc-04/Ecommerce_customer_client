@@ -6,6 +6,7 @@ import Dashboard from '../components/Dashboard.vue'
 import Detail from '../components/Detail.vue'
 import ShoppingCart from '../components/ShoppingCart.vue'
 import Orders from '../views/Orders.vue'
+import RegisterPage from '../views/RegisterPage.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Landing',
     component: Landing
+  },
+  {
+    path: '/register',
+    component: RegisterPage,
+    name: 'RegisterPage'
   },
   {
     path: '/home',
