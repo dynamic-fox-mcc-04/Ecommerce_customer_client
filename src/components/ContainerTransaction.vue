@@ -14,7 +14,7 @@
             <tbody>
                 <tr v-for="transaction in transactions" :key="transaction.id">
                     <td>{{transaction.id}}</td>
-                    <td>{{transaction.Product.name}}</td>
+                    <td>{{transaction.name}}</td>
                     <td>{{transaction.qty}}</td>
                     <td>Rp {{transaction.total}},-</td>
                     <td>{{transaction.status}}</td>

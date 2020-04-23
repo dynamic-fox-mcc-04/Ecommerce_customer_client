@@ -142,8 +142,8 @@ export default new Vuex.Store({
         })
         .then((result) => {
           resolve(result)
-          console.log(result.data.result)
-          context.commit('GET_TRANSACTIONS', result.data.result)
+          console.log(result.data.carts)
+          context.commit('GET_TRANSACTIONS', result.data.carts)
           
         }).catch((err) => {
           console.log(err.response.data, '<<<<<')
