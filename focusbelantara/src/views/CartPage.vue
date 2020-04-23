@@ -3,7 +3,7 @@
     <Navbar/>
     <Loader v-if="isLoading"/>
     <div class="cart-space">
-      <h2 v-if="carts.length == 0">your cart is empty, checkout our <b @click="redirToCatalog" style="cursor: pointer;">catalog</b> to shop!</h2>
+      <h2 v-if="carts.length == 0">your cart is empty, back to <b @click="redirToCatalog" style="cursor: pointer;">catalog</b> to continue shopping</h2>
       <CartCard v-for="cart in carts" :key="cart.id" :cart="cart"/>
     </div>
     <div class="checkout-space">
@@ -12,14 +12,14 @@
         <h3>total: {{ carts.length }} items</h3>
         <h2 style="font-weight: 600;">IDR {{ total }}</h2>
       </div>
-      <button @click="toast" class="my-btn my-btn-teal">Checkout</button>
+      <button @click="toast" class="btn btn-success w-100">Checkout</button>
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
-import CartCard from '../components/CardProduct'
+import CartCard from '../components/CartCard.vue'
 import Loader from '../components/Loader'
 export default {
   name: 'CartPage',

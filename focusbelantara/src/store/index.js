@@ -12,7 +12,7 @@ export default new Vuex.Store({
     isLogin: false,
     products: [],
     carts: [],
-    qty: 0
+    total: 0
   },
   mutations: {
     SET_ISLOADING (state, payload) {
@@ -24,12 +24,18 @@ export default new Vuex.Store({
     SET_CARTS (state, payload) {
       state.carts = payload
     },
-    SET_SUBTOTAL (state, payload) {
+    SET_TOTAL (state, payload) {
       state.carts = payload
     },
     SET_ISLOGIN (state, payload) {
       state.isLogin = payload
-    }
+    },
+    ADD_TOTAL (state, payload) {
+      state.total += payload
+    },
+    SUBSTRACT_TOTAL (state, payload) {
+      state.total -= payload
+    },
   },
   actions: {
     Login (context, payload) {
@@ -73,9 +79,9 @@ export default new Vuex.Store({
         })
     },
     fetchProductById (context, id) {
-      context.commit('SET_ISLOADING', true)
       context.commit('SET_ISLOGIN', true)
-      axios({
+      console.log('masuk store', id)
+      return axios({
         method: 'get',
         url: baseUrl + '/products/' + id,
         headers: {
@@ -128,28 +134,30 @@ export default new Vuex.Store({
         }
       })
     },
-    increase (context, cartId) {
+    increase (context, id) {
+      console.log('masuk increase')
       return axios({
         method: 'patch',
-        url: `${baseUrl}/carts/increase/${cartId}`,
+        url: `${baseUrl}/carts/increase/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     },
-    decrease (context, cartId) {
+    decrease (context, id) {
+      console.log('masuk decrease')
       return axios({
         method: 'patch',
-        url: `${baseUrl}/carts/decrease/${cartId}`,
+        url: `${baseUrl}/carts/decrease/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     },
-    deleteCart (context, cartId) {
+    deleteCart (context, id) {
       return axios({
         method: 'delete',
-        url: `${baseUrl}/carts/${cartId}`,
+        url: `${baseUrl}/carts/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }

@@ -14,13 +14,13 @@
                 <router-link to="/catalog" class="nav-link my-nav-btn"> Catalogs <span class="sr-only">(current)</span></router-link>
             </li>
             <li class="nav-item">
-                <router-link to="/catalog" class="nav-link my-nav-btn"> Chatt Admin <span class="sr-only">(current)</span></router-link>
+                <router-link to="/chatt" class="nav-link my-nav-btn"> Chatt Admin <span class="sr-only">(current)</span></router-link>
             </li>
             <li class="nav-item">
                 <a @click="Logout" class="nav-link my-nav-btn"> Logout<span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <div class="shopping-bag nav-link"><i class="bx bxs-cart icon-single nav-tem"></i><span class="badge badge-success text-center">{{ carts.length }}</span></div>
+        <div @click="redirToCartPage" class="shopping-bag nav-link"><i class="bx bxs-cart icon-single nav-tem"></i><span class="badge badge-success text-center">{{ carts.length }}</span></div>
     </div>
     </nav>
 </template>
@@ -44,6 +44,9 @@ export default {
             this.$router.push('/')
           }
         })
+    },
+    redirToCartPage () {
+      this.$router.push('/cart')
     }
   },
   computed: {

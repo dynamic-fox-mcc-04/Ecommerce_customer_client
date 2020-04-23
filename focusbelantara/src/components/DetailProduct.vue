@@ -3,19 +3,19 @@
         <h3 class="mt-2 mb-3">detail</h3>
         <div class="detail">
             <div class="detail-img" >
-                <img :src="`${product.image_url}`" class="card-img-top" alt="products-Img">
+                <img :src="`${image_url}`" class="card-img-top" alt="products-Img">
             </div>
             <div class="detail-desc">
-                <h2><b>{{ product.name }}</b></h2>
-                <h2>IDR {{ product.price }}</h2>
-                <small>{{ product.category }}</small>
+                <h4><b>{{ name }}</b></h4>
+                <h2>IDR {{ price }}</h2>
+                <medium>{{ category }}</medium>
             </div>
             <div class="cart-qty">
                 <form>
                 <input type="number" min="1" class="qty-input" v-model="qtyInput">
                 </form>
             </div>
-            <button @click="addToCartWithBody(product.id)" class="my-btn my-btn-teal special" style="margin-left: 0; font-size: 1rem;">add to cart</button>
+            <button @click="addToCartWithBody(id)" class="my-btn my-btn-teal special" style="margin-left: 0; font-size: 1rem;">add to cart</button>
         </div>
   </div>
 </template>
@@ -25,18 +25,28 @@ export default {
   name: 'DetailProduct',
   data () {
     return {
-      product: {},
+      id: '',
+      name: '',
+      price: '',
+      category: '',
+      image_url: '',
       qtyInput: 1
     }
   },
   created () {
     this.$store.dispatch('fetchProductById', this.$route.params.id)
       .then(({ data }) => {
+        console.log(this.$route.params.id)
+        console.log('------------')
         console.log(data)
-        this.product = data
+        console.log('------------')
+        this.id = data.id
+        this.name = data.name
+        this.price = data.price
+        this.category = data.category
+        this.image_url = data.image_url
       })
       .catch(err => {
-          console.log(err)
         this.$toasted.show(err.response.data)
       })
   },
@@ -44,10 +54,14 @@ export default {
     addToCartWithBody (id) {
       this.$store.dispatch('addToCartWithBody', { id, product_qty: this.qtyInput })
         .then(({ data }) => {
+          this.$router.push('/cart')
           this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
-          this.$toasted.show(err.response.data)
+            console.log(err)
+          this.$toasted.show(err, {
+              duration: 3000
+          })
         })
     }
   }

@@ -49,12 +49,12 @@ Vue.use(VueRouter)
     component: CatalogPage,
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Catalog',
         component: Catalog
       },
       {
-        path: '/:id',
+        path: ':id',
         name: 'DetailProduct',
         component: DetailProduct
       }
