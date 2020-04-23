@@ -1,25 +1,13 @@
 <template>
-  <div class="btn-bar">
-    <div class="mt-3">
-      <!-- <b-button-group>
-        <b-button variant="primary" router-link to="/home">Home</b-button>
-        <b-button variant="success" router-link to="/dashboard">Show Items</b-button>
-        <b-button variant="secondary" router-link to="/shoppingcart">My Cart</b-button>
-        <b-button variant="info" router-link to="/orders">My Orders</b-button>
-        <b-button variant="danger" @click.prevent="logout">Logout</b-button>
-      </b-button-group> -->
-
-      <!-- REAL NAVBAR -->
-      <b-navbar toggleable="lg" type="dark" variant="success">
-      <router-link to="/home">
-        <b-navbar-brand>e-Apotheke</b-navbar-brand>
-      </router-link>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="success">
+      <b-navbar-brand router-to="/home">e-Apotheke</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item disabled>{{username}}</b-nav-item>
+          <b-nav-item>{{username}}</b-nav-item>
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
 
@@ -34,22 +22,24 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
-      <!-- END REAL NAVBAR -->
-    </div>
   </div>
 </template>
 
 <script>
 import socket from '../config/socket'
 export default {
-  name: 'Navbar',
+  name: 'Navbar1',
   components: {},
   props: [],
   created () {},
   data () {
     return {
       user: ''
+    }
+  },
+  computed: {
+    username () {
+      return this.$store.state.user
     }
   },
   methods: {
@@ -65,11 +55,6 @@ export default {
       })
       this.$router.push({ path: '/' })
       this.$toasted.show('UNTIL NEXT TIME!')
-    }
-  },
-  computed: {
-    username () {
-      return this.$store.state.user
     }
   }
 }

@@ -108,5 +108,6 @@ export default {
   align-items: center;
   margin-left: 25%;
   border: 0.5px solid black;
+  border-radius: 25px;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div class="pg-home">
     <Navbar />
-    <h1>E-APOTHEKE</h1>
-    <p>Please Navigate Buttons to View or Purchase Drugs.</p>
+    <div id="home-box">
+      <h1>E-APOTHEKE</h1>
+      <h3>Please Navigate Options to View or Purchase Drugs.</h3>
+    </div>
     <router-view />
   </div>
 </template>
@@ -27,22 +29,21 @@ export default {
       })
     })
 
-    socket.on('updated_product', (payload) => {
+    socket.on('updated_product', payload => {
       this.$toasted.success(`PRODUCT ${payload.name} HAS BEEN UPDATED`, {
         position: 'bottom-right'
       })
     })
 
-    socket.on('deleted_product', (payload) => {
+    socket.on('deleted_product', payload => {
       console.log('ONE PROJECT DROPPED FROM STORE')
       this.$toasted.show(payload, {
         position: 'bottom-right'
       })
     })
-  },
-  mounted: {}
+  }
 }
 </script>
 
-<style>
+<style scoped>
 </style>

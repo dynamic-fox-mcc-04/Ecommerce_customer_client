@@ -40,6 +40,7 @@ export default {
   background-color: brown;
   padding: 2vh;
   margin: 2vh;
+  border-radius: 25px;
 }
 
 .mb-3 {
@@ -50,5 +51,6 @@ export default {
   align-content: center;
   align-items: center;
   justify-items: center;
+  border-radius: 25px;
 }
 </style>

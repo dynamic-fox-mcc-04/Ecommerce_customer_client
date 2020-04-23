@@ -9,7 +9,7 @@
       <b-jumbotron id="jb-login">
         <div id="remark-login">
           <h1>e-Apotheke</h1>
-          <h2>Your Most Trusted e-Phramacy</h2>
+          <h2>Your Most Trusted e-Pharmacy</h2>
           <p>Please Login to Continue</p>
           <p>
             <router-link to="/register">Register</router-link>
