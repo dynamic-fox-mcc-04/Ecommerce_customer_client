@@ -139,7 +139,7 @@ export default new Vuex.Store({
     checkoutCart ({ commit }, payload) {
       console.log('masuk checkout')
       return axios({
-        method: 'get',
+        method: 'patch',
         url: 'https://arcane-depths-40011.herokuapp.com/carts/checkout',
         headers: {
           token: localStorage.getItem('token')
