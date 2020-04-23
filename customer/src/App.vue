@@ -19,6 +19,7 @@
             <div v-else class="login">
             <button v-b-modal.modal-login>Login</button>
             <button v-b-modal.modal-register>register</button>
+            <!-- <button @click.prevent="handleClickSignIn">login with Gmail</button> -->
             </div>
 
           </div>
@@ -154,6 +155,26 @@ export default {
   methods: {
     ...mapActions(['fetchPending']),
     ...mapMutations(['SET_PENDING']),
+    handleClickSignIn () {
+      this.$gAuth
+        .signIn()
+        .then(GoogleUser => {
+          // on success do something
+          console.log('GoogleUser', GoogleUser)
+          console.log('getId', GoogleUser.getId())
+          console.log('getBasicProfile', GoogleUser.getBasicProfile())
+          console.log('getAuthResponse', GoogleUser.getAuthResponse())
+          console.log(
+            'getAuthResponse',
+            this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse()
+          )
+          this.isSignIn = this.$gAuth.isAuthorized
+        })
+        .catch(error => {
+          // on fail do something
+          console.log(error)
+        })
+    },
     logout () {
       this.loginstate = false
       this.submittedNames = ''

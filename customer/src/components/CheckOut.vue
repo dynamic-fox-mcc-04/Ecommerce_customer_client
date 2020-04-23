@@ -14,7 +14,7 @@
                 <table class='half-input-table'>
                 <div class="mt-3">Select address</div>
                 <b-form-select class="mb-3" v-model="selected">
-                <b-form-select-option  v-for="address in listaddress" :key="address.id"  :value="address.id">{{address.name}} / {{address.address}} </b-form-select-option>
+                <b-form-select-option  v-for="address in listaddress" :key="address.id"  :value="{id:address.id,name:address.name}">{{address.name}} / {{address.address}} </b-form-select-option>
                 </b-form-select>
                 New address name
                 <input class='input-field' v-model="addressname">
@@ -102,7 +102,8 @@ export default {
       }
     },
     checkout () {
-      if (this.selected !== '') {
+      console.log('=======', this.selected.id, this.selected.name)
+      if (this.selected.id !== '' && this.selected.name !== 'default') {
         const dt = new Date()
         this.unix = dt.getYear() + dt.getDay() + dt.getMonth() + dt.getHours() + dt.getMinutes() + dt.getSeconds()
         axios({
@@ -114,7 +115,6 @@ export default {
           }
         })
           .then(master => {
-            console.log('======>', master)
             for (const i in this.pendingorder) {
               console.log('<><><><>', this.pendingorder[i].ProductId)
               axios({
