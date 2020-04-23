@@ -1,5 +1,6 @@
 <template>
   <div class="home" style="top: 100px; position: relative;">
+      <vue-element-loading :active="isLoading" :is-full-screen="true"/>
       <h1 id="headlineText" class="mb-4 mt-2">We Serve Best Groceries in Town</h1><br>
       <div class="categoryBig d-flex align-items-center justify-content-center flex-wrap mb-4" style="position: relative;">
         <div id="imgCont1" class="imageContainer">
@@ -30,8 +31,13 @@
 <script>
 import CardBenefit from '../components/CardHomeBenefit'
 import ContainerProduct from '../components/ContainerProduct'
+import VueElementLoading from 'vue-element-loading'
+
 export default {
   name: 'Home',
+  components: {
+    VueElementLoading
+  },
   data () {
     return {
       cardBnft: [
@@ -50,12 +56,17 @@ export default {
           text: 'Always selected product we serve to you',
           icon: 'fas fa-carrot'
         }
-      ]
+      ],
+      isLoading: false
     }
   },
   methods: {
     getProductCategory (category) {
+      this.isLoading = true
       this.$store.dispatch('getProduct', category)
+      .finally(() => {
+        this.isLoading = false
+      })
     }
   },
   components: {

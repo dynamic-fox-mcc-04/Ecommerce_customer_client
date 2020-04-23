@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <vue-element-loading :active="isLoading" :is-full-screen="true"/>
     <div style="position: fixed; width: 100vw; z-index: 9999;">
       <img src="./assets/logo_navbar.png" alt="" style="width: 100px; position: absolute; z-index: 99999; margin: auto; left: 0; right: 0;">
       <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,7 +31,14 @@
 <script>
 import CartBar from './components/CartBar'
 import { mapMutations } from 'vuex'
+import VueElementLoading from 'vue-element-loading'
+
 export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   methods: {
     ...mapMutations(['SET_ISLOGIN', 'SET_CART', 'SET_CHECKOUT_IN']),
     logout () {
@@ -45,7 +53,8 @@ export default {
     }
   },
   components: {
-    CartBar
+    CartBar,
+    VueElementLoading
   },
   computed: {
     isLogin () {
@@ -59,7 +68,11 @@ export default {
     if (!localStorage.access_token) {
       this.SET_ISLOGIN(false)
     } else {
+      this.isLoading = true
       this.$store.dispatch('getTransaction')
+      .finally(() => {
+        this.isLoading = false
+      })
       this.SET_ISLOGIN(true)
     }
   }

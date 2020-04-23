@@ -58,6 +58,13 @@ export default {
         }
       })
         .then((result) => {
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: `${this.email} has been registered, please sign in before shopping`,
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(result)
           this.$router.push('/signIn')
           this.email = ''
