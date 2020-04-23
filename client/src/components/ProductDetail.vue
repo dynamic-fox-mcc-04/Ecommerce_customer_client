@@ -19,7 +19,7 @@
                 <p v-else style="color:red;">out of stock</p>
             </div>
             <div class="checkOutbtn" v-if="product.stock > 0">
-                <button class="btn btn-outline-warning" >Checkout</button>
+                <button class="btn btn-outline-warning">Checkout</button>
                 <button class="btn btn-warning" @click.prevent="addToBag">Add to bag</button>
             </div>
             <div class="checkOutbtn" v-else>
@@ -56,19 +56,30 @@ export default {
       return numeral(price).format('0,0')
     },
     addToBag () {
-      this.addCart({ productId: this.prodId, qty: this.count })
-        .then(result => {
-          this.fetchCarts()
-          this.isSuccess = true
-        })
-        .catch(err => {
-          console.log(err)
-          this.isSuccess = false
-        })
+      let isExist = false
+      this.cart.forEach(el => {
+        if (el.ProdId === Number(this.prodId)) {
+          isExist = true
+        }
+      })
+      if (isExist === false) {
+        this.addCart({ productId: this.prodId, qty: this.count })
+          .then(result => {
+            this.fetchCarts()
+            this.isSuccess = true
+          })
+          .catch(err => {
+            console.log(err)
+            this.isSuccess = false
+          })
+      } else {
+        this.$router.push('/cart')
+      }
     }
   },
   computed: {
     ...mapState(['products']),
+    ...mapState(['cart']),
     product () {
       return this.products.find(prod => prod.id === Number(this.prodId))
     }

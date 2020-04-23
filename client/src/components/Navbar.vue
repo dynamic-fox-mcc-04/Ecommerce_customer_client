@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="basket">
-    <button class="basket-btn"><i class="fas fa-shopping-basket"></i>
+    <button class="basket-btn" @click="cartList"><i class="fas fa-shopping-basket"></i>
       <span v-if="cart.length > 0" class="badge badge-danger">{{cart.length}}</span>
       <span v-else></span>
     </button>
@@ -77,6 +77,9 @@ export default {
       this.$store.commit('set_cart', [])
       this.$router.push('/')
       this.fetchProducts()
+    },
+    cartList () {
+      this.$router.push('/cart')
     }
   },
   created () {

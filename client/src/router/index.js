@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Content from '../components/Content.vue'
 import Register from '../components/RegisterForm.vue'
 import ProductDetail from '../components/ProductDetail.vue'
+import CartDetail from '../components/CartDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/product/:id',
     name: 'ProductDetail',
     component: ProductDetail
+  },
+  {
+    path: '/cart',
+    name: 'CartDetail',
+    component: CartDetail
   }
 ]
 

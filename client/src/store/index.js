@@ -27,7 +27,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchProducts ({ commit }) {
-      axios.get('http://localhost:3000/products')
+      axios.get('https://balada-ids.herokuapp.com/products')
         .then(result => {
           commit('set_products', result.data.products)
         })
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'POST',
-          url: 'http://localhost:3000/customer/login',
+          url: 'https://balada-ids.herokuapp.com/customer/login',
           data: {
             email: payload.email,
             password: payload.password
@@ -57,7 +57,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'POST',
-          url: 'http://localhost:3000/customer/register',
+          url: 'https://balada-ids.herokuapp.com/customer/register',
           data: {
             fname: payload.fname,
             lname: payload.lname,
@@ -80,7 +80,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'POST',
-          url: 'http://localhost:3000/customer/order',
+          url: 'https://balada-ids.herokuapp.com/customer/order',
           data: {
             productId: payload.productId,
             quantity: payload.qty
@@ -100,18 +100,56 @@ export default new Vuex.Store({
     fetchCarts ({ commit }) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/customer/order',
+        url: 'https://balada-ids.herokuapp.com/customer/order',
         headers: {
           customer_token: localStorage.customer_token
         }
       })
         .then(result => {
-          console.log('cartsssss', result.data.results[0].products)
           commit('set_cart', result.data.results[0].products)
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    deleteCart (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'DELETE',
+          url: 'https://balada-ids.herokuapp.com/customer/order/cart/' + payload.orderId + '/' + payload.cartId,
+          headers: {
+            customer_token: localStorage.customer_token
+          }
+        })
+          .then(result => {
+            resolve(result.data)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    checkout ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        const baseUrl = 'https://balada-ids.herokuapp.com/customer/order/checkout/' + payload[0].orderId
+        axios.patch(baseUrl, {
+          orderId: payload[0].orderId,
+          products: payload,
+          total: payload[0].total
+        }, {
+          headers: {
+            customer_token: localStorage.customer_token
+          }
+        })
+          .then(result => {
+            resolve(result.data)
+            commit('set_cart', [])
+          })
+          .catch(err => {
+            console.log('sksksk', err)
+            reject(err)
+          })
+      })
     }
   },
   modules: {
