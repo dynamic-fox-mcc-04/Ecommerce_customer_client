@@ -40,21 +40,25 @@ export default {
   },
   methods: {
     AddCart () {
-      this.$Progress.start()
-      const payload = {
-        Quantity: this.Quantity,
-        ProductId: this.$attrs.id
+      if (this.Quantity > 0) {
+        this.$Progress.start()
+        const payload = {
+          Quantity: this.Quantity,
+          ProductId: this.$attrs.id
+        }
+        this.$store.dispatch('AddCart', payload)
+          .then(result => {
+            this.$Progress.finish()
+            this.$toasted.success('Added to Cart!!')
+          })
+          .catch(err => {
+            this.$Progress.finish()
+            this.$toasted.error('Failed Add Cart!!')
+            console.log(err)
+          })
+      } else {
+        this.$toasted.error('Quantity Must Above 0!!')
       }
-      this.$store.dispatch('AddCart', payload)
-        .then(result => {
-          this.$Progress.finish()
-          this.$toasted.success('Added to Cart!!')
-        })
-        .catch(err => {
-          this.$Progress.finish()
-          this.$toasted.error('Failed Add Cart!!')
-          console.log(err)
-        })
     }
   }
 
