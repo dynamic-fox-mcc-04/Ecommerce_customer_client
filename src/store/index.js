@@ -33,7 +33,7 @@ export default new Vuex.Store({
       if (category) {
         return axios({
           method: 'get',
-          url: `http://localhost:3000/products?category=${category}`,
+          url: `https://arcane-depths-40011.herokuapp.com/products?category=${category}`,
           headers: {
             token: localStorage.getItem('token')
           }
@@ -49,7 +49,7 @@ export default new Vuex.Store({
       } else {
         return axios({
           method: 'get',
-          url: 'http://localhost:3000/products',
+          url: 'https://arcane-depths-40011.herokuapp.com/products',
           headers: {
             token: localStorage.getItem('token')
           }
@@ -68,7 +68,7 @@ export default new Vuex.Store({
     login ({ commit }, payload) {
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/users/login',
+        url: 'https://arcane-depths-40011.herokuapp.com/users/login',
         data: {
           email: payload.email,
           password: payload.password
@@ -78,7 +78,7 @@ export default new Vuex.Store({
     register ({ commit }, payload) {
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/users/register',
+        url: 'https://arcane-depths-40011.herokuapp.com/users/register',
         data: {
           username: payload.username,
           email: payload.email,
@@ -89,7 +89,7 @@ export default new Vuex.Store({
     addCart ({ commit }, payload) {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/carts',
+        url: 'https://arcane-depths-40011.herokuapp.com/carts',
         headers: {
           token: localStorage.getItem('token')
         },
@@ -101,7 +101,7 @@ export default new Vuex.Store({
     fetchCarts ({ commit }, payload) {
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/carts',
+        url: 'https://arcane-depths-40011.herokuapp.com/carts',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -118,7 +118,7 @@ export default new Vuex.Store({
       console.log('masuk patch cart', payload)
       return axios({
         method: 'patch',
-        url: `http://localhost:3000/carts/${payload.id}`,
+        url: `https://arcane-depths-40011.herokuapp.com/carts/${payload.id}`,
         headers: {
           token: localStorage.getItem('token')
         },
@@ -130,7 +130,7 @@ export default new Vuex.Store({
     deleteCart ({ commit }, payload) {
       return axios({
         method: 'delete',
-        url: `http://localhost:3000/carts/${payload}`,
+        url: `https://arcane-depths-40011.herokuapp.com/carts/${payload}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -140,7 +140,7 @@ export default new Vuex.Store({
       console.log('masuk checkout')
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/carts/checkout',
+        url: 'https://arcane-depths-40011.herokuapp.com/carts/checkout',
         headers: {
           token: localStorage.getItem('token')
         }
