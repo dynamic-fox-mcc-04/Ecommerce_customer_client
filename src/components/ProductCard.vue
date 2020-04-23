@@ -2,14 +2,16 @@
   <div class="card card-product d-flex align-items-center" style="width: 16rem;">
     <div id="img" :style="urlData">
       <div style="width:100px; background-color: #CFC08A; color: white;">
-        <p>Stock {{stock}}</p>
+        <p v-if="stock > 0">Stock {{stock}}</p>
+        <p v-if="stock <= 0">Out of Stock</p>
       </div>
     </div>
     <div class="card-body d-flex flex-column align-items-center">
         <h5 class="card-title">{{name}}</h5>
         <p class="card-text">Rp. {{price}},- /Kg</p>
         <div class="d-flex justify-content-between">
-          <button @click.prevent="add" class="btn btn-outline-success d-flex align-items-center justify-content-center">Add Cart</button>
+          <button @click.prevent="add" class="btn btn-outline-success d-flex align-items-center justify-content-center" v-if="stock > 0">Add Cart</button>
+          <button @click.prevent="out" class="btn btn-outline-success d-flex align-items-center justify-content-center" v-if="stock <= 0">Sold Out</button>
         </div>
     </div>
     </div>
@@ -45,6 +47,15 @@ export default {
       } else {
         return false
       }
+    },
+    out () {
+      this.$swal.fire({
+            position: 'center',
+            icon: 'info',
+            text: `${this.name} is out of stock`,
+            showConfirmButton: false,
+            timer: 1500
+          })
     },
     add () {
       if (localStorage.access_token && this.$store.state.isLogin) {
