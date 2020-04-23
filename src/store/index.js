@@ -22,7 +22,8 @@ export default new Vuex.Store({
     product: {
       id: 0,
       stock: 0
-    }
+    },
+    amount: 0
   },
   mutations: {
     setInitialStock (state, stock) {
@@ -68,13 +69,16 @@ export default new Vuex.Store({
         OrderId: state.cart.OrderId,
         ProductId: 0
       }
+    },
+    setAmount (state, amount) {
+      state.amount = amount
     }
   },
   actions: {
     register () {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/register',
+        url: 'https://protected-thicket-20896.herokuapp.com/register',
         data: {
           email: this.state.user.email,
           password: this.state.user.password
@@ -84,7 +88,7 @@ export default new Vuex.Store({
     login () {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/login',
+        url: 'https://protected-thicket-20896.herokuapp.com/login',
         data: {
           email: this.state.user.email,
           password: this.state.user.password
@@ -94,7 +98,7 @@ export default new Vuex.Store({
     getProducts () {
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/products',
+        url: 'https://protected-thicket-20896.herokuapp.com/products',
         headers: {
           access_token: localStorage.access_token
         }
@@ -103,7 +107,7 @@ export default new Vuex.Store({
     newOrder () {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/orders',
+        url: 'https://protected-thicket-20896.herokuapp.com/orders',
         headers: {
           access_token: localStorage.access_token
         }
@@ -112,7 +116,7 @@ export default new Vuex.Store({
     toCart () {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/orders/cart',
+        url: 'https://protected-thicket-20896.herokuapp.com/orders/cart',
         headers: {
           access_token: localStorage.access_token
         },
@@ -140,12 +144,25 @@ export default new Vuex.Store({
     //   const OrderId = Number(localStorage.OrderId)
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/orders/cart',
+        url: 'https://protected-thicket-20896.herokuapp.com/orders/cart/' + localStorage.OrderId,
         headers: {
           access_token: localStorage.access_token
         },
         data: {
-          OrderId: 7
+          OrderId: this.state.OrderId
+        }
+      })
+    },
+    checkOut () {
+      return axios({
+        method: 'put',
+        url: 'https://protected-thicket-20896.herokuapp.com/orders',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          OrderId: localStorage.OrderId,
+          amount: this.state.amount
         }
       })
     }

@@ -1,33 +1,22 @@
 <template>
   <div class="mt-5">
       <h1>Carts: Your Order</h1>
+      <button @click="checkOut">Checkout</button>
       <table class="table table-striped table-dark">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">id</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product Name</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody v-for="cart in carts" :key="cart.id">
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <th scope="row">{{cart.id}}</th>
+      <td>{{cart.total_price}}</td>
+      <td>{{cart.quantity}}</td>
+      <td>{{cart.Product.name}}</td>
     </tr>
   </tbody>
 </table>
@@ -38,11 +27,41 @@
 export default {
   name: 'Carts',
   methods: {
+    checkOut () {
+      this.$store.dispatch('checkOut')
+        .then(({ data }) => {
+          this.$router.push('/checkout')
+          this.$store.commit('setAmout', 0)
+          localStorage.removeItem('OrderId')
+        })
+        .catch(err => this.$alert(err))
+    }
+  },
+  computed: {
+    carts: {
+      get () {
+        return this.$store.state.carts
+      }
+    }
   },
   created () {
     this.$store.dispatch('getCarts')
-      .then(({ data }) => console.log(data))
-      .catch(err => console.log('ini', err))
+      .then(({ data }) => {
+        this.$store.commit('fillCarts', data)
+        let amount = 0
+        data.map(datum => {
+          amount += datum.quantity
+          return amount
+        })
+        this.$store.commit('setAmount', amount)
+      })
+      .catch(err => this.$alert(err))
+    if (!localStorage.OrderId) {
+      this.$store.dispatch('newOrder')
+        .then(({ data }) => {
+          localStorage.setItem('OrderId', data.id)
+        })
+    }
   }
 }
 </script>
