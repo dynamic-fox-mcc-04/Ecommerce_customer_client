@@ -11,7 +11,7 @@
       <tr v-for="item in items" :key="item.id">
         <td>{{item.Product.name}}</td>
         <td>{{item.sum}}</td>
-        <td><button @click.prevent="removeOrder(item)">Remove</button></td>
+        <td><button @click.prevent="removeCart(item)">Remove</button></td>
       </tr>
     </table>
     <button type="submit">Buy</button>
@@ -29,8 +29,9 @@ export default {
     }
   },
   methods: {
-    removeOrder (order) {
-      this.$store.dispatch('removeOrder', order)
+    removeCart (order) {
+      this.$store.dispatch('removeCart', order)
+      this.$store.dispatch('getCart')
     }
   },
   components: {
