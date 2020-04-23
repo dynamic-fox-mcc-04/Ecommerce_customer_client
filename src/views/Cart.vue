@@ -9,9 +9,9 @@
         <th>Action</th>
       </thead>
       <tr v-for="item in items" :key="item.id">
-        <td></td>
+        <td>{{item.Product.name}}</td>
         <td>{{item.sum}}</td>
-        <td><button>Remove</button></td>
+        <td><button @click.prevent="removeOrder(item)">Remove</button></td>
       </tr>
     </table>
     <button type="submit">Buy</button>
@@ -28,6 +28,11 @@ export default {
       fields: ['Product Name', 'Sum']
     }
   },
+  methods: {
+    removeOrder (order) {
+      this.$store.dispatch('removeOrder', order)
+    }
+  },
   components: {
     Navbar
   },
@@ -36,6 +41,9 @@ export default {
       console.log(this.$store.state.cart)
       return this.$store.state.cart
     }
+  },
+  created () {
+    this.$store.dispatch('getCart')
   }
 }
 </script>

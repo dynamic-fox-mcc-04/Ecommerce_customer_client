@@ -48,23 +48,24 @@ export default new Vuex.Store({
     getCart (context) {
       axios({
         method: 'get',
-        url: 'https://cryptic-garden-80789.herokuapp.com/product/order',
+        url: 'https://cryptic-garden-80789.herokuapp.com/order',
         headers: {
           token: localStorage.token
         }
       })
         .then(data => {
+          console.log(data)
           context.state.cart = data.data
         })
         .catch(err => {
+          console.log('Get cart gagal :(')
           console.log(err)
         })
     },
     addCart (context, product) {
-      console.log(product)
       axios({
         method: 'post',
-        url: 'https://cryptic-garden-80789.herokuapp.com/product/order/add',
+        url: 'https://cryptic-garden-80789.herokuapp.com/order/add',
         data: {
           ProductId: product.id,
           sum: product.sum,
@@ -75,11 +76,27 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          console.log(data.data)
-          context.state.cart = data.data
+          context.dispatch('getCart')
         })
         .catch(err => {
-          console.log('Add cart gagal :(')
+          console.log(err)
+        })
+    },
+    removeCart (context, order) {
+      axios({
+        method: 'delete',
+        url: `https://cryptic-garden-80789.herokuapp.com/order/${order.id}/delete`,
+        data: {
+          order: order
+        },
+        headers: {
+          token: localStorage.token
+        }
+      })
+        .then(data => {
+          context.dispatch('getCart')
+        })
+        .catch(err => {
           console.log(err)
         })
     }
