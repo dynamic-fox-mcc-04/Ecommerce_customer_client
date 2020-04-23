@@ -78,5 +78,62 @@ export default {
 </script>
 
 <style lang="scss">
-@import url(../assets/css/style.css);
+#head {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  img.head-img {
+      width: 550px;
+  }
+  img.head-img:hover {
+    transform: scale(1.5)
+  }
+  button .my-btn{
+      background: #75b61ac2;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px 20px;
+  }
+  .my-btn:hover{
+      background: #75B61A;
+      color: white;
+  }
+  section#shiping {
+    padding: 50px;
+    background: #001524;
+    color: white;
+  }
+  .box-icon {
+    display: inline-block;
+  }
+  .box-title {
+    display: inline-grid;
+    margin-left: 20px;
+  }
+  .box-title h3 {
+    font-size: 23px;
+  }
+  .box-icon i {
+    color: #75B61A;
+    font-size: 30px;
+  }
+  .shipping-box {
+    background: #1C2F3C;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  #best-selling {
+    background-color: #ffffff;
+  }
+  .test {
+    backdrop-filter: blur(5px);
+  }
+  .carousel {
+    background-color: #f5f6f8;
+  }
 </style>
