@@ -7,6 +7,8 @@
     <p class="card-text">productid : {{product.id}}</p>
     <p class="card-text">price : {{product.price}}</p>
     <p class="card-text">stock : {{product.stock}}</p>
+  </div>
+  <div class="card-footer">
     <button @click.prevent="addcart" class="btn btn-primary">add to cart</button>
   </div>
 </div>

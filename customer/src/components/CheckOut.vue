@@ -1,6 +1,6 @@
 <template >
 <div>
-    <div class='container'>
+    <div class='containercheckout'>
     <div class='window'>
         <div class='order-info'>
         <div class='order-info-content'>
@@ -130,6 +130,25 @@ export default {
                 }
               })
             }
+            axios({
+              method: 'post',
+              url: 'http://localhost:3000/trans/mail',
+              headers: {
+                token: localStorage.token
+              },
+              data: {
+                number_trans: this.unix,
+                total_price: this.totalItem,
+                email: localStorage.email
+              }
+            })
+              .then(hsl => {
+                console.log(hsl)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+
             this.$toasted.global.my_app_success({
               message: 'Purchasing Confirm'
             })
@@ -188,7 +207,7 @@ h2 {
   font-size:1.2rem;
 
 }
-.container {
+.containercheckout {
   height:100%;
   -webkit-box-pack:center;
   -webkit-justify-content:center;
@@ -202,6 +221,7 @@ h2 {
   display:-webkit-flex;
   display:-ms-flexbox;
   display:flex;
+  justify-content: center;
   background:-webkit-linear-gradient(#c5e5e5, #ccddf9);
   background:linear-gradient(#c9e5e9,#ccddf9);
 }

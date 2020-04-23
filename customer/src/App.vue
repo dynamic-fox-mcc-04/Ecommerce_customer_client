@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-sm bg-light navbar-light ">
         <div class="container1">
           <div class="item">
-            <router-link to="/">Home</router-link>
+            <router-link to="/"><strong>G-Ecommers</strong> </router-link>
           </div>
           <div class="item">
             <div class="login">
@@ -159,6 +159,7 @@ export default {
       this.submittedNames = ''
       this.SET_PENDING([])
       localStorage.clear()
+      this.$router.push('/')
     },
     checkFormValidityLogin () {
       const valid = this.$refs.form.checkValidity()
