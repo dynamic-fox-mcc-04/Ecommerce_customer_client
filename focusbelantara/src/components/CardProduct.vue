@@ -20,15 +20,21 @@ export default {
   props: ['product'],
   methods: {
     redirToDetail: function (id) {
-      this.$router.push(`/catalog/${id}`)
-        .then(_ => {
-          this.$toasted.show('Enjoy your shopping ^_^', {
-            duration: 3000
+      if (localStorage.token && localStorage.isLogin) {
+        this.$router.push(`/catalog/${id}`)
+          .then(_ => {
+            this.$toasted.show('Enjoy your shopping ^_^', {
+              duration: 3000
+            })
           })
+          .catch(err => {
+            this.$vToastify.error('Require login')
+          })
+      } else {
+        this.$toasted.show('Please login first to go shop', {
+          duration: 3000
         })
-        .catch(err => {
-          this.$vToastify.error('Require login')
-        })
+      }
     }
   }
 }

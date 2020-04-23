@@ -58,8 +58,8 @@ export default {
           this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
-            console.log(err)
-          this.$toasted.show(err, {
+          console.log(err)
+          this.$toasted.show('You already add this item, please choose another one', {
               duration: 3000
           })
         })

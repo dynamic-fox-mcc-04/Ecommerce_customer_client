@@ -1,6 +1,5 @@
 <template>
   <div class="cart-page">
-    <Navbar/>
     <Loader v-if="isLoading"/>
     <div class="cart-space">
       <h2 v-if="carts.length == 0">your cart is empty, back to <b @click="redirToCatalog" style="cursor: pointer;">catalog</b> to continue shopping</h2>
@@ -9,16 +8,18 @@
     <div class="checkout-space">
       <div></div>
       <div class="d-flex flex-column align-items-end">
-        <h3>total: {{ carts.length }} items</h3>
+        <h3>Total: {{ carts.length }} items</h3>
         <h2 style="font-weight: 600;">IDR {{ total }}</h2>
       </div>
-      <button @click="toast" class="btn btn-success w-100">Checkout</button>
+      <div class="d-flex flex-rowalign-items-center justify-content-center w-100">
+        <button @click="toast" class="btn btn-success w-50 p-3 m-2">Checkout</button>
+        <button @click="redirToCatalog" class="btn btn-danger w-50 p-3 m-2">Back</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue'
 import CartCard from '../components/CartCard.vue'
 import Loader from '../components/Loader'
 export default {
@@ -34,7 +35,6 @@ export default {
     }
   },
   components: {
-    Navbar,
     CartCard,
     Loader
   },
@@ -65,7 +65,7 @@ export default {
   display: flex;
 }
 .cart-space {
-//   color: $secondary;
+  color: #2E4756;
   width: 70%;
   padding: 5rem 5vh;
   overflow-y: scroll;
