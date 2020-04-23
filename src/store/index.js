@@ -174,7 +174,7 @@ export default new Vuex.Store({
     cancelCart () {
       return axios({
         method: 'delete',
-        url: 'https://protected-thicket-20896.herokuapp.com/cart/' + this.state.cart.id,
+        url: 'https://protected-thicket-20896.herokuapp.com/orders/cart/' + this.state.cart.id,
         headers: {
           access_token: localStorage.access_token
         }
