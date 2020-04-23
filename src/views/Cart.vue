@@ -30,9 +30,10 @@
             <div v-if="cartCon" class="card card-checkout">
                 <div class="card-body body-card-checkout">
                     <p>Total Payment: {{totalPayment | currency}}</p>
-                    <button class="btn btn-success" @click="checkoutCart"><i class="fas fa-wallet"></i> CHECKOUT</button>
+                    <button class="btn btn-success" data-toggle="collapse" data-target="#collapseExample"> Proceed Payment</button>
                 </div>
             </div>
+            <Checkout/>
         </div>
         <div class="col-xl-2"></div>
     </div>
@@ -40,10 +41,13 @@
 
 <script>
 import Swal from 'sweetalert2'
-import socket from '../config/socket.js'
+import Checkout from '../components/Checkout'
 
 export default {
   name: 'Cart',
+  components: {
+    Checkout
+  },
   computed: {
     carts () {
       return this.$store.getters.unPaidCarts
@@ -81,7 +85,6 @@ export default {
           })
         })
         .catch(err => {
-          console.log(err.response.data.errors[0].message)
           if (!localStorage.getItem('token')) {
             this.$router.push('/login')
           }
@@ -149,43 +152,6 @@ export default {
             })
             .catch(err => {
               console.log(err)
-            })
-        }
-      })
-    },
-    checkoutCart () {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, pay all!'
-      }).then((result) => {
-        if (result.value) {
-          this.$store.dispatch('checkoutCart')
-            .then(({ data }) => {
-              socket.emit('checkout')
-              console.log('successfully checkout')
-              this.$store.dispatch('fetchCarts')
-              this.$router.push('/history')
-              this.$toasted.show('successfully checkout', {
-                theme: 'bubble',
-                position: 'top-right',
-                duration: 3000,
-                type: 'success'
-              })
-            })
-            .catch(err => {
-              console.log('err checkout', err.response.data.errors[0].message)
-              this.$store.dispatch('fetchCarts')
-              this.$toasted.show(err.response.data.errors[0].message, {
-                theme: 'bubble',
-                position: 'top-right',
-                duration: 3000,
-                type: 'error'
-              })
             })
         }
       })
