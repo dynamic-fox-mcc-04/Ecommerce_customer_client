@@ -1,13 +1,32 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav container" v-if="isLogin">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <button @click.prevent="logout">Logout</button>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$store.commit('setLogin', false)
+      this.$router.push('/login')
+    }
+  },
+  computed: {
+    isLogin: {
+      get () {
+        return this.$store.state.isLogin
+      }
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
