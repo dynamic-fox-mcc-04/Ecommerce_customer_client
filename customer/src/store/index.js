@@ -23,18 +23,23 @@ export default new Vuex.Store({
   },
   actions: {
     fetchProduct (context, payload) {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:3000/product'
+      console.log('==========FETCH PRODUCT')
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: 'http://localhost:3000/product/customer/all'
+        })
+          .then(result => {
+            const newproducts = result.data.data
+            context.commit('SET_PRODUCT', newproducts)
+            resolve(result)
+          })
+          .catch(err => {
+            console.log(err)
+            context.commit('SET_PRODUCT', [])
+            reject(err)
+          })
       })
-        .then(result => {
-          const newproducts = result.data.data
-          context.commit('SET_PRODUCT', newproducts)
-        })
-        .catch(err => {
-          console.log(err)
-          context.commit('SET_PRODUCT', [])
-        })
     },
     fetchPending (context, payload) {
       axios({

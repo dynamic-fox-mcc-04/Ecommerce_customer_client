@@ -27,7 +27,8 @@
                 <b-form-select-option value="Transfer" selected>Transfer</b-form-select-option>
                 <b-form-select-option value="COD" >Cash On Delivery</b-form-select-option>
                 </b-form-select>
-                <button class='pay-btn'>Checkout</button>
+                <button class='pay-btn' @click.prevent="checkout">Checkout</button>
+                <button class='can-btn' @click.prevent="cancel">cancel</button>
         <div class='total'>
             <span style='float:left;' >
                 TOTAL
@@ -54,7 +55,8 @@ export default {
       paymentmethod: 'Transfer',
       selected: '',
       addressname: '',
-      addressroad: ''
+      addressroad: '',
+      unix: 0
     }
   },
   components: {
@@ -71,7 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchPending', 'fetchAddress']),
+    ...mapActions(['fetchPending', 'fetchAddress', 'fetchProduct']),
     addAddress () {
       if (this.addressroad !== '' && this.addressname !== '') {
         axios({
@@ -98,11 +100,73 @@ export default {
           message: 'New Address name and New address is required'
         })
       }
+    },
+    checkout () {
+      if (this.selected !== '') {
+        const dt = new Date()
+        this.unix = dt.getYear() + dt.getDay() + dt.getMonth() + dt.getHours() + dt.getMinutes() + dt.getSeconds()
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/mastertransaction',
+          data: {
+            number_trans: this.unix,
+            total_price: this.totalItem
+          }
+        })
+          .then(master => {
+            console.log('======>', master)
+            for (const i in this.pendingorder) {
+              console.log('<><><><>', this.pendingorder[i].ProductId)
+              axios({
+                method: 'put',
+                url: 'http://localhost:3000/trans',
+                headers: {
+                  token: localStorage.token
+                },
+                data: {
+                  id: this.pendingorder[i].id,
+                  masterid: master.id,
+                  ProductId: this.pendingorder[i].ProductId
+                }
+              })
+            }
+            this.$toasted.global.my_app_success({
+              message: 'Purchasing Confirm'
+            })
+            this.fetchProduct()
+              .then(response => {
+                this.fetchPending()
+                this.$router.push('/')
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        this.$toasted.global.my_app_error({
+          message: 'Address is required'
+        })
+      }
+    },
+    cancel () {
+      this.$router.push('/')
     }
   },
   created () {
     this.fetchPending()
     this.fetchAddress()
+    this.fetchProduct()
+      .then(response => {
+        this.$toasted.global.my_app_info({
+          message: 'Refresh'
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
@@ -257,7 +321,7 @@ ul li:hover {
   color:#fff;
   cursor:pointer;
   position:absolute;
-  bottom:25px;
+  bottom:75px;
   width:calc(100% - 50px);
   -webkit-transition:all .2s ease;
           transition:all .2s ease;
@@ -269,6 +333,27 @@ ul li:hover {
           transition:all .2s ease;
 }
 
+.can-btn {
+  border:none;
+  background:#22b877;
+  line-height:2em;
+  border-radius:10px;
+  font-size:19px;
+  font-size:1.2rem;
+  color:#fff;
+  cursor:pointer;
+  position:absolute;
+  bottom:25px;
+  width:calc(100% - 50px);
+  -webkit-transition:all .2s ease;
+          transition:all .2s ease;
+}
+.can-btn:hover {
+  background:#22a877;
+    color:#eee;
+  -webkit-transition:all .2s ease;
+          transition:all .2s ease;
+}
 .total {
   margin-top:0px;
   font-size:20px;
