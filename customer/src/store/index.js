@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios from '../axios'
 
 Vue.use(Vuex)
 
@@ -27,7 +27,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'GET',
-          url: 'http://localhost:3000/product/customer/all'
+          url: '/product/customer/all'
         })
           .then(result => {
             const newproducts = result.data.data
@@ -44,7 +44,7 @@ export default new Vuex.Store({
     fetchPending (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/trans/pending',
+        url: '/trans/pending',
         headers: {
           token: localStorage.token,
           idalamat: localStorage.idalamat
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     fetchAddress (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/customerdetail',
+        url: '/customerdetail',
         headers: {
           token: localStorage.token,
           idalamat: localStorage.idalamat

@@ -47,7 +47,7 @@
 <script>
 import ListCart from '../components/ListCart.vue'
 import { mapState, mapActions } from 'vuex'
-import axios from 'axios'
+import axios from '../axios'
 export default {
   name: 'Checkout',
   data () {
@@ -78,7 +78,7 @@ export default {
       if (this.addressroad !== '' && this.addressname !== '') {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/customerdetail',
+          url: '/customerdetail',
           headers: {
             token: localStorage.token
           },
@@ -108,7 +108,7 @@ export default {
         this.unix = dt.getYear() + dt.getDay() + dt.getMonth() + dt.getHours() + dt.getMinutes() + dt.getSeconds()
         axios({
           method: 'post',
-          url: 'http://localhost:3000/mastertransaction',
+          url: '/mastertransaction',
           data: {
             number_trans: this.unix,
             total_price: this.totalItem
@@ -119,7 +119,7 @@ export default {
               console.log('<><><><>', this.pendingorder[i].ProductId)
               axios({
                 method: 'put',
-                url: 'http://localhost:3000/trans',
+                url: '/trans',
                 headers: {
                   token: localStorage.token
                 },
@@ -132,7 +132,7 @@ export default {
             }
             axios({
               method: 'post',
-              url: 'http://localhost:3000/trans/mail',
+              url: '/trans/mail',
               headers: {
                 token: localStorage.token
               },

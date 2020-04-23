@@ -134,7 +134,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from './axios'
 import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   data () {
@@ -207,7 +207,7 @@ export default {
       // Push the name to submitted names
       axios({
         method: 'post',
-        url: 'http://localhost:3000/customer/login',
+        url: '/customer/login',
         data: {
           email: this.email,
           password: this.password
@@ -258,7 +258,7 @@ export default {
       if (this.password === this.repassword) {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/customer/Register',
+          url: '/customer/Register',
           data: {
             email: this.email,
             password: this.password

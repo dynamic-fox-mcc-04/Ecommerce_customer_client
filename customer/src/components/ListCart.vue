@@ -26,7 +26,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import axios from 'axios'
+import axios from '../axios'
 export default {
   name: 'ListCard',
   props: ['listpending'],
@@ -36,7 +36,7 @@ export default {
       console.log('--------------', this.listpending.id)
       axios({
         method: 'delete',
-        url: 'http://localhost:3000/trans',
+        url: '/trans',
         headers: {
           token: localStorage.token,
           idalamat: localStorage.idalamat

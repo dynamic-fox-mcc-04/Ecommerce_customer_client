@@ -55,7 +55,7 @@ Register
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../axios'
 export default {
   name: 'RegisterForm',
   data () {
@@ -75,7 +75,7 @@ export default {
       if (this.form.password === this.form.retypePassword) {
         axios({
           method: 'POST',
-          url: 'http://localhost:3000/customer/register',
+          url: '/customer/register',
           data: {
             email: this.form.email,
             password: this.form.password
