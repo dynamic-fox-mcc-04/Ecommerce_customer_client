@@ -26,14 +26,14 @@
                         <td><a href="#" @click="deleteCart(cart.id)"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                 </tbody>
-            </table>
-            <div v-if="cartCon" class="card card-checkout">
-                <div class="card-body body-card-checkout">
-                    <p>Total Payment: {{totalPayment | currency}}</p>
-                    <button class="btn btn-success" data-toggle="collapse" data-target="#collapseExample"> Proceed Payment</button>
-                </div>
-            </div>
-            <Checkout/>
+          </table>
+          <div v-if="cartCon" class="card card-checkout">
+              <div class="card-body body-card-checkout">
+                  <p>Total Payment: {{totalPayment | currency}}</p>
+                  <button class="btn btn-success" data-toggle="collapse" data-target="#collapseExample"> Proceed Payment</button>
+              </div>
+          </div>
+          <Checkout/>
         </div>
         <div class="col-xl-2"></div>
     </div>
