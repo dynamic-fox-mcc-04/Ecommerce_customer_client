@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-light shadow p-3 bg-white rounded">
       <router-link to="/" class="navbar-brand">
-        <img src="../assets/icn.jpg" style="height: 50px;"/>
+        <img src="../assets/icn.jpg" style="height: 50px;"/>Neko Pawrtal
       </router-link>
       <button
         class="navbar-toggler"
@@ -36,9 +36,9 @@
               <i class="cart fas fa-shopping-basket fa-lg"></i>My Shopping Cart
             </router-link>
           </div>
-          <div id="logout">
-            <a @click="$store.dispatch('signout')">
-              <i class="fas fa-sign-out-alt fa-lg"></i>Logout
+          <div id="signout">
+            <a @click="$store.dispatch('signout')" class="nav-link">
+              <i class="fas fa-sign-out-alt fa-lg"></i>Signout
             </a>
           </div>
         </div>
@@ -53,6 +53,14 @@ export default {
 }
 </script>
 <style scoped>
+.navbar-brand{
+  font-family: 'Gochi Hand', cursive;
+}
+
+.navbar-brand img{
+  margin-right: 15px;
+}
+
 #navbarToggle ul li {
   font-size: 20px;
 }
@@ -81,12 +89,12 @@ export default {
   transform: scale(1.05);
 }
 
-#logout {
+#signout {
   cursor: pointer;
   margin-right: 20px;
 }
 
-#logout:hover {
+#signout:hover {
   transition: .5s;
   transform: scale(1.05);
 }

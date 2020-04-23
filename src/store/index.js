@@ -5,8 +5,8 @@ import router from '../router/index'
 
 Vue.use(Vuex)
 
-const baseUrl = 'http://localhost:3000'
-// const baseUrl = 'https://powerful-lake-70062.herokuapp.com'
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://powerful-lake-70062.herokuapp.com'
 
 export default new Vuex.Store({
   state: {
@@ -57,6 +57,7 @@ export default new Vuex.Store({
       router.push({ path: '/' })
     },
     fetchProduct (context, payload) {
+      context.commit('SET_LOADING', true)
       axios({
         method: 'GET',
         url: `${baseUrl}/product`,
@@ -70,8 +71,12 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+        .finally(_ => {
+          context.commit('SET_LOADING', false)
+        })
     },
     getProduct (context, id) {
+      context.commit('SET_LOADING', true)
       return axios({
         method: 'GET',
         url: `${baseUrl}/product/${id}`,

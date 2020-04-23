@@ -10,8 +10,8 @@
         </div>
       </div>
     </div>
-    <!-- <Loading v-if="isLoading"/> -->
-    <div class="container my-3 py-5 text-center">
+    <Loading v-if="isLoading"/>
+    <div v-else class="container my-3 py-5 text-center">
       <div class="row mb-5">
         <div class="col">
           <h1>OUR GROOMING AIDS</h1>
@@ -29,22 +29,22 @@
 <script>
 import Card from '../components/Card.vue'
 import Footerpage from '../components/Footer'
-// import Loading from '../components/LoadingPage'
+import Loading from '../components/LoadingPage'
 
 export default {
   name: 'listProduct',
   components: {
     Card,
-    Footerpage
-    // Loading
+    Footerpage,
+    Loading
   },
   computed: {
     products: function () {
       return this.$store.state.products.filter(product => product.category === 'Grooming Aids')
+    },
+    isLoading: function () {
+      return this.$store.state.isLoading
     }
-    // isLoading: function () {
-    //   return this.$store.state.isLoading
-    // }
   },
   created () {
     this.$store.dispatch('fetchProduct')

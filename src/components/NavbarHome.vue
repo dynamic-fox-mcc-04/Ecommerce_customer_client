@@ -1,14 +1,42 @@
 <template>
-  <div class="NavBar">
-    <nav class="navbar navbar-light bg-white">
-      <div class="nav-brand">
-        <img src="../assets/icn.jpg" alt="logo" style="height: 50px;">
-        <a class="navbar-brand">Neko Pawrtal</a>
-      </div>
-      <div id="signin">
-        <router-link id="btn" to="/signin">
-          <i class="fas fa-sign-in-alt fa-lg"></i>Signin
-        </router-link>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 bg-white rounded">
+      <router-link to="/" class="navbar-brand">
+        <img src="../assets/icn.jpg" style="height: 50px;"/>Neko Pawrtal
+      </router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarToggle"
+        aria-controls="navbarToggle"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
+          <li class="nav-item active">
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Product</a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <router-link class="dropdown-item" to="/product/accessories">Accessories</router-link>
+                <router-link class="dropdown-item" to="/product/foods">Foods</router-link>
+                <router-link class="dropdown-item" to="/product/groomingaids">Grooming Aids</router-link>
+                <router-link class="dropdown-item" to="/product/toiletries">Toiletries</router-link>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="icon">
+          <div id="signin">
+            <router-link class="nav-link" id="btn" to="/signin">
+              <i class="fas fa-sign-in-alt fa-lg"></i>Signin
+            </router-link>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
@@ -16,50 +44,48 @@
 
 <script>
 export default {
-  name: 'NavbarHome'
+  name: 'Navbar'
 }
 </script>
-
 <style scoped>
-.nav-brand{
-  display: flex;
-  align-items: center;
+.navbar-brand{
+  font-family: 'Gochi Hand', cursive;
 }
 
-.nav-brand img{
+.navbar-brand img{
   margin-right: 15px;
 }
 
-.nav-brand a{
-  font-family: 'Gochi Hand', cursive;
-  font-size: 30px;
+#navbarToggle ul li {
+  font-size: 20px;
+}
+
+.icon {
+  display: flex;
+}
+
+.icon i {
   color: #444;
-  padding: 0;
+  margin-right: 5px;
+}
+
+.dropdown a{
+  color: #444;
+  cursor: pointer;
 }
 
 #signin {
-  height: 80%;
-  padding-left: 30px;
-  border-left: 1px solid #b3b3b3;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+  margin-right: 20px;
 }
 
-#signin #btn{
-  color: #646666;
-  display: flex;
-  align-items: center;
-}
-
-#signin #btn i{
-  margin-right: 10px;
-}
-
-#signin #btn:hover {
-  color: #f96816;
+#signin:hover {
   transition: .5s;
-  transform: scale(1.15);
-  text-decoration: none;
+  transform: scale(1.05);
+}
+
+.nav-link{
+  padding: 0;
+  color:  #444;
 }
 </style>

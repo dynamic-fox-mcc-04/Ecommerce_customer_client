@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div id="product-page" style="margin-top: 130px">
+    <Loading v-if="isLoading"/>
+    <div v-else id="product-page">
       <div class="row d-flex">
         <img :src="image_Url" :alt="name">
         <div class="card col-lg-6 col-md-12">
@@ -22,10 +23,13 @@
 
 <script>
 import Footerpage from '../components/Footer'
+import Loading from '../components/LoadingPage'
+
 export default {
   name: 'detailProduct',
   components: {
-    Footerpage
+    Footerpage,
+    Loading
   },
   data () {
     return {
@@ -51,6 +55,11 @@ export default {
         })
     }
   },
+  computed: {
+    isLoading: function () {
+      return this.$store.state.isLoading
+    }
+  },
   created () {
     this.$store.dispatch('getProduct', this.$route.params.id)
       .then(({ data }) => {
@@ -62,6 +71,9 @@ export default {
       })
       .catch(err => {
         console.log(err)
+      })
+      .finally(_ => {
+        this.$store.commit('SET_LOADING', false)
       })
   }
 }
