@@ -5,9 +5,10 @@
             <div class="detail-img" >
                 <img :src="`${image_url}`" class="card-img-top" alt="products-Img">
             </div>
-            <div class="detail-desc">
+            <div class="detail-desc text-left">
                 <h4><b>{{ name }}</b></h4>
                 <h2>IDR {{ price }}</h2>
+                <p>Stock: {{ stock }} </p>
                 <medium>{{ category }}</medium>
             </div>
             <div class="cart-qty">
@@ -28,6 +29,7 @@ export default {
       id: '',
       name: '',
       price: '',
+      stock: '',
       category: '',
       image_url: '',
       qtyInput: 1
@@ -43,6 +45,7 @@ export default {
         this.id = data.id
         this.name = data.name
         this.price = data.price
+        this.stock = data.stock
         this.category = data.category
         this.image_url = data.image_url
       })
@@ -71,15 +74,20 @@ export default {
 <style lang="scss">
     .detail {
         display: flex;
+        min-height: 70vh;
         background-color: rgb(255, 255, 255);
         padding: 1rem 1rem;
         box-shadow: 4px 5px 6px -2px rgba(0,0,0,0.26);
     }
+    .my-btn {
+      min-height: 50px;
+    }
     .detail-img {
-        width: 30%;
+        width: 30vw;
     }
     .detail-desc {
-        width: 70%;
+        width: 50vw;
+        margin-left: 10vw;
         padding: 1rem 1rem;
         display: flex;
         flex-direction: column;

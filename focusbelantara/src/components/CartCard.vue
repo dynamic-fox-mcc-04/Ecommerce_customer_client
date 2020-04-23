@@ -8,11 +8,11 @@
       <p>{{ cart.Product.category }}</p>
     </div>
     <div class="cart-qty">
-      <div @click="increase(cart.id)">
+      <div @click="increase(cart.CartId)">
         <i class="fas fa-caret-square-up"></i>
       </div>
       <h2>{{ cart.product_qty }}</h2>
-      <div @click="decrease(cart.id)">
+      <div @click="decrease(cart.CartId)">
         <i class="fas fa-caret-square-down"></i>
       </div>
     </div>
@@ -20,7 +20,7 @@
       <h2>IDR {{ subtotal }}</h2>
     </div>
     <div class="add-btn">
-      <i @click="deleteCart(cart.id)" class="fas fa-minus-circle fa-2x m-2"></i>
+      <i @click="deleteCart(cart.CartId)" class="fas fa-minus-circle fa-2x m-2"></i>
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@ export default {
         })
     },
     deleteCart (id) {
+      console.log('hapus id')
       this.$toasted.show(`Are you sure you want to remove ${this.cart.Product.name} from your cart?`, {
         action: [
           {
@@ -103,8 +104,6 @@ export default {
   },
   computed: {
     subtotal () {
-      console.log(this.cart.Product)
-      console.log(this.cart.Product.price)
       return this.cart.Product.price * this.cart.product_qty
     }
   }

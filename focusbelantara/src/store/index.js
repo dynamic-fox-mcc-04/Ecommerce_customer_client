@@ -99,7 +99,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
           context.commit('SET_CARTS', data)
         })
         .catch(err => {
@@ -155,6 +154,7 @@ export default new Vuex.Store({
       })
     },
     deleteCart (context, id) {
+      console.log('masuik sini', id)
       return axios({
         method: 'delete',
         url: `${baseUrl}/carts/${id}`,
