@@ -39,6 +39,11 @@ export default {
     paidCarts () {
       return this.$store.getters.paidCarts
     }
+  },
+  created () {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
   }
 }
 </script>

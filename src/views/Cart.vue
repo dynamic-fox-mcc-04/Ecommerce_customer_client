@@ -193,6 +193,9 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchCarts')
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
   }
 }
 </script>
