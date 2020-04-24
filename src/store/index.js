@@ -26,7 +26,7 @@ export default new Vuex.Store({
       // panggil axios di sini, kemudian set state.allproducts menggunakan context.commit('set_products', allProducts)
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products',
+        url: 'https://sheltered-mountain-85329.herokuapp.com/products',
         headers: {
           access_token: localStorage.access_token
         }
@@ -43,7 +43,7 @@ export default new Vuex.Store({
     fetchShoppingCartProducts (context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/shoppingCart',
+        url: 'https://sheltered-mountain-85329.herokuapp.com/shoppingCart',
         headers: {
           access_token: localStorage.access_token
         }

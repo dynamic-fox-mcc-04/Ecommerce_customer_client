@@ -38,7 +38,7 @@ export default {
       // console.log(payload)
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/shoppingCart',
+        url: 'https://sheltered-mountain-85329.herokuapp.com/shoppingCart',
         headers: {
           access_token: localStorage.access_token
         },
@@ -55,7 +55,7 @@ export default {
           }
           axios({
             method: 'PUT',
-            url: 'http://localhost:3000/products/' + selectedId,
+            url: 'https://sheltered-mountain-85329.herokuapp.com/products/' + selectedId,
             headers: {
               access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcmNoaWVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTg3NDcwNjc0fQ.hdJFI_HQt1xR3Zcm4CG2NAvwpddmCpv-SOcdAZyb1EI'
             },
@@ -94,7 +94,7 @@ export default {
       const id = this.$route.params.id
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products/' + id,
+        url: 'https://sheltered-mountain-85329.herokuapp.com/products/' + id,
         headers: {
           access_token: localStorage.access_token
         }

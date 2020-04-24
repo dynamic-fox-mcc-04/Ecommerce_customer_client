@@ -31,7 +31,7 @@ export default {
       // console.log(newUser)
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/register',
+        url: 'https://sheltered-mountain-85329.herokuapp.com/register',
         data: newUser
       })
         .then(result => {

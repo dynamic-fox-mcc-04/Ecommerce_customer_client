@@ -36,7 +36,7 @@ export default {
     checkout () {
       axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/shoppingCart',
+        url: 'https://sheltered-mountain-85329.herokuapp.com/shoppingCart',
         headers: {
           access_token: localStorage.access_token
         }
@@ -52,7 +52,7 @@ export default {
       // console.log('deleteItem remarked')
       axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/shoppingCart/' + CartId,
+        url: 'https://sheltered-mountain-85329.herokuapp.com/shoppingCart/' + CartId,
         headers: {
           access_token: localStorage.access_token
         }
@@ -67,7 +67,7 @@ export default {
           }
           axios({
             method: 'PUT',
-            url: 'http://localhost:3000/products/' + ProductId,
+            url: 'https://sheltered-mountain-85329.herokuapp.com/products/' + ProductId,
             headers: {
               access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcmNoaWVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTg3NDcwNjc0fQ.hdJFI_HQt1xR3Zcm4CG2NAvwpddmCpv-SOcdAZyb1EI'
             },
