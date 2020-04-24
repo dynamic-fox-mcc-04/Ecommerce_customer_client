@@ -50,10 +50,7 @@ export default {
     },
     toCart (price, stock) {
       const total = this.$store.state.cart.quantity * price
-      console.log(total)
-      console.log(price)
       const id = this.$route.params.id
-      console.log(id)
       this.$store.commit('setTotalPrice', total)
       this.$store.commit('setProductId', id)
       this.$store.commit('setInitialStock', stock)

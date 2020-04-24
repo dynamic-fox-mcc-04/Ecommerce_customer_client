@@ -14,7 +14,7 @@
                 </div>
                 <div class="frproductinner innerposition">
                     <h4><a >{{product.name}}</a></h4>
-                    <router-link :to="`/detail/${product.id}`">Process</router-link>
+                    <router-link :to="`/detail/${product.id}`"><button class="button btn-success">Process</button> </router-link>
                     <h3>Stock left: {{product.stock}}</h3>
                     <ul class="frproprize text-left ml-text">
                         <li class="oldprize">{{updateCurrency(product.price)}}</li>
