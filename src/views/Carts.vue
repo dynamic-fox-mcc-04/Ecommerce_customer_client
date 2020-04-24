@@ -33,16 +33,18 @@ export default {
       this.$store.dispatch('checkOut')
         .then(({ data }) => {
           this.$router.push('/checkout')
-          this.$store.commit('setAmout', 0)
+          this.$store.commit('setAmount', 0)
           localStorage.removeItem('OrderId')
+          localStorage.removeItem('ProductId')
         })
         .catch(err => this.$alert(err))
     },
     deleteProduct (id) {
       this.$store.commit('setCartId', id)
+      localStorage.removeItem('ProductId', id)
       this.$store.dispatch('cancelCart')
         .then(() => {
-          this.$router.push('/cart')
+          this.$router.push('/carts')
         })
         .catch(err => this.$alert(err))
     }
@@ -66,11 +68,8 @@ export default {
         this.$store.commit('setAmount', amount)
       })
       .catch(err => this.$alert(err))
-    if (!localStorage.OrderId) {
-      this.$store.dispatch('newOrder')
-        .then(({ data }) => {
-          localStorage.setItem('OrderId', data.id)
-        })
+    if (!localStorage.access_token) {
+      this.$router.push('/login')
     }
   }
 }

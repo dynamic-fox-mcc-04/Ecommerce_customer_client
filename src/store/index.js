@@ -22,11 +22,26 @@ export default new Vuex.Store({
     },
     product: {
       id: 0,
+      name: '',
+      image_url: '',
+      price: 2000,
       stock: 0
     },
     amount: 0
   },
   mutations: {
+    setProductName (state, name) {
+      state.product.name = name
+    },
+    setProductImage (state, image) {
+      state.product.image_url = image
+    },
+    setProductPrice (state, price) {
+      state.product.price = price
+    },
+    setProductStock (state, stock) {
+      state.product.stock = stock
+    },
     setCartId (state, id) {
       state.cart.id = id
     },
@@ -39,8 +54,13 @@ export default new Vuex.Store({
     setTotalPrice (state, price) {
       state.cart.total_price = price
     },
-    setQuantity (state) {
+    addQuantity (state) {
       state.cart.quantity++
+    },
+    minQuantity (state) {
+      if (state.cart.quantity > 0) {
+        state.cart.quantity--
+      }
     },
     setOrderId (state, id) {
       state.cart.OrderId = id
@@ -80,6 +100,16 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getProduct (context, payload) {
+      const id = payload
+      return axios({
+        url: `https://protected-thicket-20896.herokuapp.com/products/${id}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+    },
     register () {
       return axios({
         method: 'post',
