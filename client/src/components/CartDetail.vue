@@ -79,7 +79,7 @@ export default {
           }, 2000)
         })
         .catch(err => {
-          console.log(err.data)
+          this.$store.commit('set_error', err)
         })
     },
     convertPrice (value) {
@@ -92,19 +92,19 @@ export default {
       this.totalSummary += value
     },
     delCart (orderId, cartId) {
-      console.log(orderId, cartId)
       this.deleteCart({ orderId, cartId })
         .then(res => {
           this.fetchCarts()
           this.$router.push('/cart')
         })
         .catch(err => {
-          console.log(err)
+          this.$store.commit('set_error', err)
         })
     }
   },
   computed: {
     ...mapState(['cart']),
+    ...mapState(['isLogin']),
     countQty () {
       let result = []
       result = this.cart.map(el => {
@@ -122,7 +122,11 @@ export default {
     }
   },
   created () {
-    this.fetchCarts()
+    if (!this.isLogin) {
+      this.$router.push('/')
+    } else {
+      this.fetchCarts()
+    }
   }
 }
 </script>

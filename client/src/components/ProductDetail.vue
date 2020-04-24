@@ -69,8 +69,8 @@ export default {
             this.isSuccess = true
           })
           .catch(err => {
-            console.log(err)
             this.isSuccess = false
+            this.$store.commit('set_error', err)
           })
       } else {
         this.$router.push('/cart')

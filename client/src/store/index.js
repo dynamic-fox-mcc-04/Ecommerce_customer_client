@@ -9,9 +9,13 @@ export default new Vuex.Store({
     products: [],
     isLogin: false,
     name: '',
-    cart: []
+    cart: [],
+    errors: ''
   },
   mutations: {
+    set_error (context, error) {
+      context.errors = error
+    },
     set_products (context, payload) {
       context.products = payload
     },
@@ -32,7 +36,7 @@ export default new Vuex.Store({
           commit('set_products', result.data.products)
         })
         .catch(err => {
-          console.log(err)
+          commit('set_error', err)
         })
     },
     loginCustomer (context, payload) {
@@ -71,7 +75,6 @@ export default new Vuex.Store({
             resolve(result.data)
           })
           .catch(err => {
-            console.log(err.response.data)
             reject(err.response.data)
           })
       })
@@ -109,7 +112,7 @@ export default new Vuex.Store({
           commit('set_cart', result.data.results[0].products)
         })
         .catch(err => {
-          console.log(err)
+          commit('set_error', err)
         })
     },
     deleteCart (context, payload) {
@@ -146,7 +149,6 @@ export default new Vuex.Store({
             commit('set_cart', [])
           })
           .catch(err => {
-            console.log('sksksk', err)
             reject(err)
           })
       })
