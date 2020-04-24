@@ -21,10 +21,10 @@ export default {
   name: 'ProductCard',
   props: ['product'],
   computed: {
-    ...mapState(['pendingorder'])
+    ...mapState(['pendingorder', 'jmlcart', 'totalprice'])
   },
   methods: {
-    ...mapActions(['fetchPending']),
+    ...mapActions(['fetchPending', 'fetchJmlCart']),
     addcart () {
       axios({
         method: 'post',
@@ -39,8 +39,8 @@ export default {
         }
       })
         .then(result => {
-          console.log('>>>', result.data)
           this.fetchPending()
+          this.fetchJmlCart()
         })
         .catch(err => {
           // this.loginstate = false
@@ -53,6 +53,7 @@ export default {
   },
   created () {
     this.fetchPending()
+    this.fetchJmlCart()
   }
 }
 </script>

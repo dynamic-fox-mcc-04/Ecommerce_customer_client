@@ -5,7 +5,7 @@
         <div class='order-info'>
         <div class='order-info-content'>
             <h2>Order Summary</h2>
-             <ListCart v-for="listpending in pendingorder" :key="listpending.id" :listpending="listpending"/>
+             <ListCart v-for="(listpending,idx) in pendingorder" :key="idx" :listpending="listpending"/>
             <div class='line'></div>
     </div>
     </div>
@@ -34,7 +34,7 @@
                 TOTAL
             </span>
             <span style='float:right; text-align:right;'>
-                Rp. {{totalItem}}
+                Rp. {{totalprice}}
             </span>
             </div>
             </div>
@@ -63,17 +63,10 @@ export default {
     ListCart
   },
   computed: {
-    ...mapState(['pendingorder', 'listaddress']),
-    totalItem: function () {
-      let sum = 0
-      this.pendingorder.forEach(function (item) {
-        sum += parseFloat(item.price)
-      })
-      return sum
-    }
+    ...mapState(['pendingorder', 'listaddress', 'jmlcart', 'totalprice'])
   },
   methods: {
-    ...mapActions(['fetchPending', 'fetchAddress', 'fetchProduct']),
+    ...mapActions(['fetchPending', 'fetchAddress', 'fetchProduct', 'fetchJmlCart']),
     addAddress () {
       if (this.addressroad !== '' && this.addressname !== '') {
         axios({
@@ -102,6 +95,7 @@ export default {
       }
     },
     checkout () {
+      console.log('PENDING ORDER', this.pendingorder)
       console.log('=======', this.selected.id, this.selected.name)
       if (this.selected.id !== '' && this.selected.name !== 'default') {
         const dt = new Date()
@@ -111,12 +105,12 @@ export default {
           url: '/mastertransaction',
           data: {
             number_trans: this.unix,
-            total_price: this.totalItem
+            total_price: this.totalprice
           }
         })
           .then(master => {
             for (const i in this.pendingorder) {
-              console.log('<><><><>', this.pendingorder[i].ProductId)
+              console.log('alamat defaulttt', this.pendingorder[i].idalamatdefault)
               axios({
                 method: 'put',
                 url: '/trans',
@@ -124,9 +118,8 @@ export default {
                   token: localStorage.token
                 },
                 data: {
-                  id: this.pendingorder[i].id,
                   masterid: master.id,
-                  ProductId: this.pendingorder[i].ProductId
+                  id_alamat_default: this.pendingorder[i].idalamatdefault
                 }
               })
             }
@@ -138,7 +131,7 @@ export default {
               },
               data: {
                 number_trans: this.unix,
-                total_price: this.totalItem,
+                total_price: this.totalprice,
                 email: localStorage.email
               }
             })
@@ -155,6 +148,7 @@ export default {
             this.fetchProduct()
               .then(response => {
                 this.fetchPending()
+                this.fetchJmlCart()
                 this.$router.push('/')
               })
               .catch(err => {
@@ -175,17 +169,13 @@ export default {
     }
   },
   created () {
+    this.fetchJmlCart()
     this.fetchPending()
     this.fetchAddress()
     this.fetchProduct()
-      .then(response => {
-        this.$toasted.global.my_app_info({
-          message: 'Refresh'
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
   }
 }
 </script>

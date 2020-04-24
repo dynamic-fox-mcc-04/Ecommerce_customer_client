@@ -8,9 +8,16 @@ export default new Vuex.Store({
   state: {
     allproduct: [],
     pendingorder: [],
-    listaddress: []
+    listaddress: [],
+    jmlcart: 0,
+    totalprice: 0
   },
   mutations: {
+    SET_CART (state, databaru) {
+      console.log('==set cart', databaru)
+      state.jmlcart = databaru.jmlcart
+      state.totalprice = databaru.totalprice
+    },
     SET_PRODUCT (state, databaru) {
       state.allproduct = databaru
     },
@@ -23,7 +30,6 @@ export default new Vuex.Store({
   },
   actions: {
     fetchProduct (context, payload) {
-      console.log('==========FETCH PRODUCT')
       return new Promise((resolve, reject) => {
         axios({
           method: 'GET',
@@ -51,8 +57,51 @@ export default new Vuex.Store({
         }
       })
         .then(result => {
-          const count = result.data.data
-          context.commit('SET_PENDING', count)
+          const data = result.data.data
+          const sumsArray = {}
+          let sums
+          data.forEach(item => {
+            sums = sumsArray[item.ProductId]
+            if (sums) {
+              sums.qty++
+              sums.valore += item.price
+            } else {
+              sumsArray[item.ProductId] = {
+                ProductId: item.ProductId,
+                name: item.Product.name,
+                qty: 1,
+                valore: item.price,
+                image_url: item.Product.image_url,
+                stock: item.Product.stock,
+                price: item.Product.price,
+                idalamatdefault: localStorage.idalamat
+              }
+            }
+          })
+          console.log('<><><><><>', sumsArray)
+
+          context.commit('SET_PENDING', sumsArray)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchJmlCart (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/trans/pending',
+        headers: {
+          token: localStorage.token,
+          idalamat: localStorage.idalamat
+        }
+      })
+        .then(result => {
+          const data = result.data.data.length
+          let jml = 0
+          for (const i in result.data.data) {
+            jml += result.data.data[i].price
+          }
+          context.commit('SET_CART', { jmlcart: data, totalprice: jml })
         })
         .catch(err => {
           console.log(err)

@@ -4,18 +4,23 @@
             <table class='order-table'>
             <tbody>
                 <tr>
-                <td><img class='full-width' :src="listpending.Product.image_url" >
+                <td><img class='full-width' :src="listpending.image_url" >
                 </td>
                 <td>
-                    <br> <span class='thin'>{{listpending.Product.name}}</span>
-                    <span class='thin small'> stock: {{listpending.Product.stock}}<br><br></span>
+                    <br> <span class='thin'>{{listpending.name}}</span>
+                    <span class='thin small'> stock: {{listpending.stock}}<br><br></span>
                 </td>
 
                 </tr>
                 <tr>
-                <td>
-                  <button @click.prevent="del">delete</button>
-                    <div class='price'>Rp.{{listpending.price}}</div>
+                <td class="ig">
+                  <div class="tombol">
+                  <button @click.prevent="del">-</button>
+                  <p>   {{listpending.qty}}    </p>
+                  <button @click.prevent="addcart">+</button>
+                  </div>
+                  <p>X {{listpending.price}}</p>
+                  <div class='price'>Rp.{{listpending.valore}}</div>
                 </td>
                 </tr>
             </tbody>
@@ -31,9 +36,8 @@ export default {
   name: 'ListCard',
   props: ['listpending'],
   methods: {
-    ...mapActions(['fetchPending']),
+    ...mapActions(['fetchPending', 'fetchJmlCart']),
     del () {
-      console.log('--------------', this.listpending.id)
       axios({
         method: 'delete',
         url: '/trans',
@@ -42,11 +46,12 @@ export default {
           idalamat: localStorage.idalamat
         },
         data: {
-          id: this.listpending.id
+          id: this.listpending.ProductId
         }
       })
         .then(result => {
           this.fetchPending()
+          this.fetchJmlCart()
           this.$toasted.global.my_app_info({
             message: 'Delete item in cart success'
           })
@@ -55,14 +60,43 @@ export default {
           // this.loginstate = false
           console.log(err)
         })
+    },
+    addcart () {
+      axios({
+        method: 'post',
+        url: '/trans',
+        headers: {
+          token: localStorage.token,
+          idalamat: localStorage.idalamat
+        },
+        data: {
+          id: this.listpending.ProductId,
+          price: this.listpending.price
+        }
+      })
+        .then(result => { // this.loginstate = false
+          this.$toasted.global.my_app_success({
+            message: 'add to cart success'
+          })
+          this.fetchPending()
+          this.fetchJmlCart()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   created () {
     this.fetchPending()
+    this.fetchJmlCart()
   }
 }
 </script>
 
 <style>
-
+.tombol {
+  display: flex;
+   justify-content: space-around;
+   align-items: baseline;
+}
 </style>

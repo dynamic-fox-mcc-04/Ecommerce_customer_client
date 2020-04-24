@@ -7,14 +7,16 @@
             <router-link to="/"><strong>G-Ecommers</strong> </router-link>
           </div>
           <div class="item">
-            <div class="login">
-            <p>{{submittedNames}}</p>
-            </div>
-            <div class="login">
-              <router-link to="/checkout">Cart: {{pendingorder.length}} </router-link>
-            </div>
             <div v-if="loginstate === true" class="login">
+              <div class="item besar">
+              <p>{{submittedNames}}</p>
+              </div>
+              <div class="item besar">
+              <router-link to="/checkout">Cart: {{jmlcart}} </router-link>
+              </div>
+              <div class="item">
               <button @click.prevent="logout">logout</button>
+              </div>
             </div>
             <div v-else class="login">
             <button v-b-modal.modal-login>Login</button>
@@ -150,10 +152,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['pendingorder'])
+    ...mapState(['pendingorder', 'jmlcart'])
   },
   methods: {
-    ...mapActions(['fetchPending']),
+    ...mapActions(['fetchPending', 'fetchJmlCart']),
     ...mapMutations(['SET_PENDING']),
     handleClickSignIn () {
       this.$gAuth
@@ -219,6 +221,7 @@ export default {
           localStorage.setItem('idalamat', result.data.idalamat)
           localStorage.setItem('email', this.email)
           this.fetchPending()
+          this.fetchJmlCart()
           this.submittedNames = this.email
           this.loginstate = true
           this.$nextTick(() => {
@@ -272,6 +275,7 @@ export default {
             this.loginstate = true
             this.submittedNames = this.email
             this.fetchPending()
+            this.fetchJmlCart()
           })
           .catch(err => {
             console.log(err)
@@ -292,6 +296,7 @@ export default {
   },
   created () {
     this.fetchPending()
+    this.fetchJmlCart()
     console.log(this.pendingorder)
 
     if (localStorage.token) {
@@ -350,9 +355,15 @@ export default {
 .item {
   color: #42b983;
   display: flex;
+  margin: 5px;
 }
 .login {
- margin: 5px;
-  padding: 5px;
+  display: flex;
+  align-items: baseline;
+ margin: 10px;
+padding: 10px;
+}
+.besar {
+  padding: 20px;
 }
 </style>
