@@ -1,5 +1,5 @@
 <template>
-  <div class="footer fixed-bottom">
+  <div class="footer d-flex fixed-bottom mb-3">
     copyright 2020 &copy; Ahmad Waluyo
   </div>
 </template>
@@ -12,14 +12,9 @@ export default {
 
 <style>
 .footer {
-  width: 100%;
-  padding: 0px 30px 10px 0px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: center;
   background-color: transparent;
   color: rgb(0, 0, 0);
-  position: fixed;
   z-index: 2;
 }
 </style>

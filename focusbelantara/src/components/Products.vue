@@ -36,32 +36,31 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .carousel {
-    background-color: #ffff;
+  background-color: #ffff;
 }
+
 .main {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
+
 .card {
-    cursor: pointer;
-    height: 50vh;
-    background-color: #ffff
+  cursor: pointer;
+  height: 50vh;
+  background-color: #ffff;
 }
+
 .card p {
-    margin-top: -10px;
-    margin-bottom: 1px;
+  margin-top: -10px;
+  margin-bottom: 1px;
 }
+
 .row .card:hover {
-    box-shadow: 2px 2px 2px rgba(0, 0, 0,0.4);
-    transform: scale(1.02);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
 }
-.footer-product {
-  height: 250px;
-  background-color: rgb(221, 221, 221);
-  padding: 2rem 3vw;
-  display: flex;
-}
+
 .supported-by {
   display: flex;
   align-items: center;
@@ -69,24 +68,20 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  small {
-    color: rgb(179, 179, 179);
-    text-align: center;
-  }
 }
+.supported-by small {
+  color: #b3b3b3;
+  text-align: center;
+}
+
 .cc {
   display: flex;
-  i {
-    margin: 0 5px;
-  }
 }
-.ecommerce-info {
-    width: 40%;
-    color: grey;
-    padding: 0 2rem;
-    border-left: 1px solid grey;
+.cc i {
+  margin: 0 5px;
 }
+
 .title {
-    color: #1e8080;
+  color: #1e8080;
 }
 </style>

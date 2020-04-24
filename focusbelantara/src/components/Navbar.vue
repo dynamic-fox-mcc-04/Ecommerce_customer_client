@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto"></ul>
-        <ul class="my-navbar navbar-nav">
+        <ul class="my-navbar navbar-nav mr-3">
             <li class="nav-item active">
                 <router-link to="/" class="nav-link my-nav-btn"> Home <span class="sr-only">(current)</span></router-link>
             </li>
@@ -44,34 +44,38 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .navbar {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.25);
-  color: rgb(0, 0, 0);
+  color: black;
   position: fixed;
   z-index: 2;
 }
+
 .my-nav-btn {
   margin: 0 10px 0 0;
   text-decoration: none;
   cursor: pointer;
-  transition: .3s;
-  &:hover {
-    color: rgba($color: #000000, $alpha: 1.0);
-    transform: scale(1.1);
-  }
+  transition: 0.3s;
 }
+.my-nav-btn:hover {
+  color: black;
+  transform: scale(1.1);
+}
+
 .shopping-bag {
-    position: relative;
+  position: relative;
 }
+
 .shopping-bag i {
   font-size: 30px;
   cursor: pointer;
 }
+
 .shopping-bag .badge {
   border-radius: 50%;
   height: 18px;
@@ -82,25 +86,30 @@ export default {
   right: 5px;
   transform: translate(0, -10px);
 }
+
 .bxs-cart {
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
-  &:hover {
-    color: rgba($color: #000000, $alpha: 1.0);
-    transform: scale(1.2);
-  }
 }
+.bxs-cart:hover {
+  color: black;
+  transform: scale(1.2);
+}
+
 .my-navbar a {
   color: #000000;
 }
+
 .my-navbar a:hover {
   color: #f7a800;
 }
+
 .navbar .navbar-brand {
   cursor: pointer;
   font-style: large bold;
   font-weight: 100;
 }
+
 .navbar-brand img {
   height: 2rem;
   margin-right: 10px;

@@ -12,7 +12,7 @@
       <div></div>
       <small>Copyright 2020 <i class="fas fa-copyright"></i> Ahmad Waluyo</small>
     </div>
-    <div class="ecommerce-info">
+    <div class="ecommerce-info pt-4">
       <p>Disclaimer! This website inspired by Focusnusantara Camera Store</p>
       <p><b>Address:</b> Jl. Panglima Polim IX No.10, RT.2/RW.7, Melawai, Jakarta, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160</p>
     </div>

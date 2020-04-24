@@ -11,7 +11,7 @@
         <input id="login__email" v-model="username" type="text" class="form__input" placeholder="Username" required>
       </div>
       <div class="form__field">
-        <label for="login__email"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Email</span></label>
+        <label for="login__email"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#"></use></svg><span class="hidden">Email</span></label>
         <input id="login__email" v-model="email" type="email" class="form__input" placeholder="Email" required>
       </div>
       <div class="form__field">
@@ -19,10 +19,10 @@
         <input id="login__password" v-model="password" type="password" class="form__input" placeholder="Password" required>
       </div>
       <div class="form__field form-submit">
-          <div class="m-1">
+          <div class="d-flex w-100 mr-1">
             <input type="submit" value="Register">
           </div>
-          <div class="m-1">
+          <div class="d-flex w-100 ml-1">
             <a @click="redireBackLogin" class="btn-back"><span class="sr-only">(current)</span>Back</a>
           </div>
       </div>
@@ -91,6 +91,7 @@ export default {
   justify-content: center;
   backdrop-filter: blur(5px);
 }
+
 .grid {
   max-width: 100vw;
   max-height: 100vh;
@@ -99,6 +100,7 @@ export default {
   max-width: 20rem;
   width: 90%;
 }
+
 .hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -109,9 +111,11 @@ export default {
   position: absolute;
   width: 1px;
 }
+
 .icons {
   display: none;
 }
+
 .icon {
   display: inline-block;
   fill: #606468;
@@ -120,9 +124,11 @@ export default {
   vertical-align: middle;
   width: 1em;
 }
+
 .icons {
   display: none;
 }
+
 .icon {
   display: inline-block;
   fill: #606468;
@@ -131,13 +137,15 @@ export default {
   vertical-align: middle;
   width: 1em;
 }
+
 * {
   box-sizing: inherit;
 }
+
 #align {
   background-color: #2c3338;
   color: #606468;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
   height: 100%;
@@ -145,15 +153,18 @@ export default {
   margin: 0;
   min-height: 100vh;
 }
+
 a {
   color: #000000;
   outline: 0;
   text-decoration: none;
 }
+
 a:focus,
 a:hover {
   text-decoration: underline;
 }
+
 input {
   background-image: none;
   border: 0;
@@ -164,19 +175,22 @@ input {
   padding: 0;
   transition: #2c3338 0.3s;
 }
-input[type='submit'], .btn-back {
+
+input[type=submit], .btn-back {
   cursor: pointer;
 }
+
 .form {
   margin: calc(0.875rem * -1);
 }
-.form input[type='password'],
-.form input[type='text'],
-.form input[type='email'] {
-  width: 100%;
+
+.form input[type=password],
+.form input[type=text],
+.form input[type=email] {
   height: 56px;
 }
-.form input[type='submit'], .btn-back {
+
+.form input[type=submit], .btn-back {
   display: flex;
   text-align: center;
   justify-content: center;
@@ -184,81 +198,97 @@ input[type='submit'], .btn-back {
   width: 100%;
   height: 100%;
 }
+
 .form__field {
   display: flex;
   margin: 0.875rem;
 }
+
 .form__input {
   flex: 1;
 }
+
 .btn-back {
-    background-color: rgb(156, 156, 126) !important;
+  background-color: #9c9c7e !important;
 }
+
 .login {
   color: #eee;
 }
+
 .login label,
-.login input[type='email'],
-.login input[type='text'],
-.login input[type='password'] {
+.login input[type=email],
+.login input[type=text],
+.login input[type=password] {
   border-radius: 0.25rem;
   padding: 1rem;
 }
-.login input[type='submit'], .btn-back {
+
+.login input[type=submit], .btn-back {
   border-radius: 0.25rem;
-  width: 23vh;
   padding: 10px;
 }
+
 .login label {
   background-color: #3b4148;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  height: 56px;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.login input[type='password'],
-.login input[type='text'],
-.login input[type='email'] {
+
+.login input[type=password],
+.login input[type=text],
+.login input[type=email] {
   background-color: #3b4148;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.login input[type='password']:focus,
-.login input[type='password']:hover,
-.login input[type='text']:focus,
-.login input[type='text']:hover,
-.login input[type='email']:focus,
-.login input[type='email']:hover {
+
+.login input[type=password]:focus,
+.login input[type=password]:hover,
+.login input[type=text]:focus,
+.login input[type=text]:hover,
+.login input[type=email]:focus,
+.login input[type=email]:hover {
   background-color: #434a52;
 }
-.login input[type='submit'] {
-  background-color: #434a52;
-  color: 700;
+
+.login input[type=submit] {
+  background-color: #108d7c;
+  color: #eee;
   text-transform: uppercase;
 }
+
 .login .btn-back {
-    background-color: #fd0000;
-    color: #eee;
-    font-weight: 700;
-    text-transform: uppercase; 
+  background-color: #fd0000;
+  color: #eee;
+  font-weight: 700;
+  text-transform: uppercase;
 }
-.login input[type='submit']:focus,
-.login input[type='submit']:hover {
+
+.login input[type=submit]:focus,
+.login input[type=submit]:hover {
   background-color: #d44179;
 }
+
 .btn-back:focus,
 .btn-back:hover {
   background-color: #d44179;
 }
+
 p {
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
 }
+
 .text--center {
   text-align: center;
   color: #000000;
   box-shadow: #2c3338;
 }
+
 .form-submit .btn-back:hover,
 .form-submit .btn-back:focus {
   background-color: #fd0000 !important;

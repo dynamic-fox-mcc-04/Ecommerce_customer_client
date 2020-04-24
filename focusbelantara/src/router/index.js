@@ -7,7 +7,6 @@ import Catalog from '../components/Products.vue'
 import CatalogPage from '../views/CatalogPage.vue'
 import DetailProduct from '../components/DetailProduct.vue'
 import CartPage from '../views/CartPage.vue'
-import ChatAdmin from '../views/ChatAdmin.vue'
 
 Vue.use(VueRouter)
 
@@ -31,14 +30,6 @@ Vue.use(VueRouter)
     path: '/cart',
     name: 'CartPage',
     component: CartPage,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/chatt',
-    name: 'ChatAdmin',
-    component: ChatAdmin,
     meta: {
       requiresAuth: true
     }

@@ -1,9 +1,9 @@
 <template>
   <div class="card col-md-3 m-4 text-center" @click="redirToDetail(product.id)">
-    <div class="c-img">
+    <div class="c-img mb-1">
         <img :src="`${product.image_url}`" alt="foto" style="width: 18rem" class="mx-auto">
     </div>
-    <div class="card-body text-center">
+    <div class="card-body text-center mt-5">
         <div class="c-title">
             <h5 class="card-title">{{ product.name }}</h5>
         </div>
@@ -40,41 +40,49 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .card-body h5 {
-      font-weight: bold;
-  }
-  .c-img {
-      height: 40vh;
-  }
-  .c-img img {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-position: center;
-      padding-right: 25px;
-  }
-  .c-title, .c-price {
-      height: 15vh;
-  }
-  .product-desc {
+<style>
+.card-body h5 {
+  font-weight: bold;
+}
+
+.c-img {
+  height: 20vh;
+}
+
+.c-img img {
+  width: 13px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  padding-right: 25px;
+}
+
+.c-title, .c-price {
+  height: 15vh;
+}
+
+.product-desc {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: .5rem .5rem;
+  padding: 0.5rem 0.5rem;
   text-align: center;
-  p {
-    margin: 0;
-    color: black;
-    transition: .3s;
-  }
 }
+.product-desc p {
+  margin: 0;
+  color: black;
+  transition: 0.3s;
+}
+
 .product-name {
   cursor: pointer;
-  &:hover {
-    transform: scale(1.05);
-  }
 }
+.product-name:hover {
+  transform: scale(1.05);
+}
+
 .img-products {
   cursor: pointer;
 }

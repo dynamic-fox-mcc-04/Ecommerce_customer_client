@@ -1,13 +1,14 @@
 <template>
   <div class="cart-card">
-    <div class="cart-img">
-      <img :src="`${cart.Product.image_url}`" class="shoes-img" alt="shoes">
+    <div class="cart-img pt-4">
+      <img :src="`${cart.Product.image_url}`" width="200px" height="100px" alt="camera">
     </div>
-    <div class="cart-desc">
+    <div class="cart-desc pt-3">
       <h4>{{ cart.Product.name }}</h4>
       <p>{{ cart.Product.category }}</p>
+      <p>Stock: {{ cart.Product.stock }}</p>
     </div>
-    <div class="cart-qty">
+    <div class="cart-qty pt-4">
       <div @click="increase(cart.CartId)">
         <i class="fas fa-caret-square-up"></i>
       </div>
@@ -110,78 +111,78 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .add-btn {
   cursor: pointer;
 }
+
 .cart-card {
   height: 10rem;
   width: 100%;
-  // background-color: $primary;
   display: flex;
   margin-bottom: 1rem;
-  box-shadow: 4px 5px 6px -2px rgba(0,0,0,0.26);
-  p {
-    margin: 0;
-  }
+  box-shadow: 4px 5px 6px -2px rgba(0, 0, 0, 0.26);
   position: relative;
 }
-.cart-img {
-  // @include flexCenterCol();
-  width: 20%;
-  background-color: rgb(255, 255, 255);
+.cart-card p {
+  margin: 0;
 }
+
+.cart-card .cart-img {
+  width: 20%;
+  padding-top: 10px;
+  background-color: white;
+}
+
 .cart-desc {
-  // @include flexCenterCol();
-  padding: 1rem 2rem;
+  padding-right: 2rem;
   align-items: flex-start;
   width: 40%;
-  // background-color: rgb(172, 37, 37);
-  h2 {
-    margin: 0;
-    font-weight: 600;
-    color: black;
-  }
 }
+.cart-desc h2 {
+  margin: 0;
+  font-weight: 600;
+  color: black;
+}
+
 .cart-qty {
-  // @include flexCenterCol();
   width: 10%;
-  h2 {
-    margin: .5rem 0;
-    color: black;
-  }
-  // background-color: rgb(212, 29, 29);
 }
+.cart-qty h2 {
+  margin: 0.5rem 0;
+  color: black;
+}
+
 .cart-price {
-  // @include flexCenterCol();
-  padding: 1rem .5rem;
+  margin-top: 30px;
+  padding: 1rem 0.5rem;
   width: 30%;
-  h2 {
-    margin: .5rem 0;
-    color: black;
-  }
-  // background-color: rgb(255, 47, 47);
 }
+.cart-price h2 {
+  margin: 0.5rem 0;
+  color: black;
+}
+
 .fa-caret-square-up {
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
-  &:hover {
-    transform: scale(1.25);
-    color: rgb(26, 231, 146);
-  }
 }
+.fa-caret-square-up:hover {
+  transform: scale(1.25);
+  color: #1ae792;
+}
+
 .fa-caret-square-down {
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
-  &:hover {
-    transform: scale(1.25);
-    color: rgb(255, 105, 5);
-  }
 }
-.add-btn {
-  img {
-    width: 30px;
-    height: 30px;
-  }
+.fa-caret-square-down:hover {
+  transform: scale(1.25);
+  color: #ff6905;
+}
+
+.add-btn img {
+  width: 30px;
+  height: 30px;
 }
 </style>

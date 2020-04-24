@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .cart-page {
   height: 100vh;
   display: flex;
