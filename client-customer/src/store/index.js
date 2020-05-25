@@ -103,6 +103,18 @@ export default new Vuex.Store({
       })
     },
 
+    googleLogin (context, payload) {
+      console.log('GOOGLE LOGIN HANDLING @ STORE')
+      console.log(payload)
+      return axios({
+        method: 'POST',
+        url: '/users/googleLogin',
+        headers: {
+          access_token: payload
+        }
+      })
+    },
+
     fetchProducts (context, payload) {
       console.log('FETCH ITEMS @ STORE')
       context.commit('SET_LOADING', true)
